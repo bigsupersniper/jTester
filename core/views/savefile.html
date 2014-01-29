@@ -1,0 +1,34 @@
+
+<div style="margin: 10px;">
+    <div class="modal-header" style="padding: 5px;">
+        <h4>保存文件</h4>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="input-group">
+                <span class="input-group-addon">下载链接</span>
+                <input type="text" class="form-control" disabled ng-value="params.downlink">
+            </div>
+            <div class="input-group" style="margin-top: 10px;">
+                <span class="input-group-addon">文件名称</span>
+                <input type="text" class="form-control" ng-value="params.filename">
+            </div>
+            <div class="input-group" style="margin-top: 10px;">
+                <span class="input-group-addon">保存到</span>
+                <input type="text" class="form-control" style="width: 620px;" disabled ng-value="params.downdir || params.defaultPath">
+                <div style="float: right;">
+                    <button class="btn btn-warning fileinput-save">
+                        <i class="glyphicon glyphicon-folder-open"></i>
+                        <input type="file" ng-model="params.downdir" nwdirectory>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="save()" ng-disabled="!params.filename || (!params.downdir && !params.defaultPath)">保存</button>
+        <button class="btn btn-warning" ng-click="cancel()">取消</button>
+    </div>
+</div>
+

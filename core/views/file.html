@@ -1,0 +1,25 @@
+
+<div style="margin: 10px;">
+    <div class="modal-header" style="padding: 5px;">
+        <h4>选择文件</h4>
+    </div>
+    <div class="modal-body">
+        <div class="col-sm-2">
+            <span class="btn btn-success fileinput-open">
+                <i class="glyphicon glyphicon-folder-open"></i>
+                <span style="margin-left:8px">添加文件</span>
+                <input type="file" ng-model="file" ng-change="change(file)">
+            </span>
+        </div>
+        <ul class="list-group" style="margin-top: 50px;">
+            <li class="list-group-item" ng-repeat="file in files">
+                {{ file }}
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="remove($index)">&times;</button>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="files.length <= 0" ng-click="upload()">上传</button>
+        <button class="btn btn-warning" ng-click="cancel()">取消</button>
+    </div>
+</div>

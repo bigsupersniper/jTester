@@ -1,0 +1,17 @@
+{
+    "name": "jTester",
+    "main": "app://linfeng/core/index.html",
+    "webkit": {
+        "plugin": true
+    },
+    "chromium-args": "--allow-file-access-from-files --disable-web-security",
+    "window": {
+        "title": "jTester",
+        "toolbar": true,
+        "frame": true,
+        "width": 1024,
+        "height": 650,
+        "resizable" : true,
+        "position": "center"
+    }
+}
