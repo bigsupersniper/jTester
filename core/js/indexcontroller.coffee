@@ -10,30 +10,38 @@ class window.IndexCtrl
         click : ()->
           openOptions()
       }
+      {
+        title :  "下载内容"
+        click : ()->
+          openDownloads()
+      }
     ]
 
     jTester.alert =
-      show : (type , message)->
+      show : (type , message , timeout)->
+        timeout = timeout || 3000
         $modal.open {
-          template: '<alert type="type" style="text-align: center ; margin-bottom : 0px">{{ message }}</alert>'
+          templateUrl : jTester.global.templateUrls.alert
           backdrop : 'center'
           resolve : {
             message : ()->
               return message
             type : ()->
               return type
+            timeout : ()->
+              return timeout
           }
-          controller: ($scope , $modalInstance , $timeout , message , type)->
+          controller: ($scope , $modalInstance , $timeout , message , type, timeout)->
             $scope.message = message
             $scope.type = type
             $timeout ()->
               $modalInstance.close 'dismiss'
-            , 2000
+            , timeout
         }
-      success : (message)->
-        @show('success' , message)
-      error : (message)->
-        @show('danger' , message)
+      success : (message , timeout)->
+        @show('success' , message, timeout)
+      error : (message, timeout)->
+        @show('danger' , message, timeout)
 
     jTester.file.openFile = ($context)->
       $modal.open {
@@ -90,6 +98,13 @@ class window.IndexCtrl
         controller: 'ConfigCtrl'
       }
 
+    openDownloads = ()->
+      $modalInstance = $modal.open {
+        templateUrl: jTester.global.templateUrls.downloadlist
+        backdrop : 'center'
+        controller: 'DownlistCtrl'
+      }
+
       $modalInstance.result.then (result)->
         if result == 'success'
           jTester.alert.success '保存成功'
@@ -143,7 +158,7 @@ class window.ConfigCtrl
 
     $scope.cancel = ()->
       if !jTester.config.host
-        jTester.alert.success '请先设置服务器地址'
+        alert '请先设置服务器地址'
       else
         $modalInstance.close 'dismiss'
 
@@ -170,16 +185,39 @@ class window.OpenFileCtrl
 
 class window.SaveFileCtrl
   constructor : ($scope , $modalInstance , context)->
-    downlink = "#{jTester.config.host}/#{context.params.controller}/#{context.params.action}"
     context.$modalInstance = $modalInstance
     $scope.params =
       filename  : context.params.action
       defaultPath : jTester.config.defaultPath
-      downlink : downlink
+      downlink : jTester.global.URL.resolve jTester.config.host , "/#{context.params.controller}/#{context.params.action}"
 
     $scope.save = ()->
       context.params.downdir = $scope.params.downdir || jTester.config.defaultPath
       new jTester.http(context).down()
+
+    $scope.cancel = ()->
+      $modalInstance.close 'dismiss'
+
+########################## class DownlistCtrl ##############################
+
+class window.DownlistCtrl
+  constructor : ($scope , $modalInstance)->
+    $scope.items = jTester.downlist
+
+    $scope.showItemInFolder = (path)->
+      if jTester.global.fileExistsSync path
+        jTester.global.showItemInFolder path
+      else
+        alert '文件已删除'
+
+    $scope.remove = (index)->
+      $scope.items.splice index , 1
+      jTester.global.saveDownlist()
+
+    $scope.clear = ()->
+      jTester.downlist = []
+      $scope.items = []
+      jTester.global.saveDownlist()
 
     $scope.cancel = ()->
       $modalInstance.close 'dismiss'

@@ -15,6 +15,7 @@ window.jTester = {}
 window.jTester.config = {}
 window.jTester.alert = {}
 window.jTester.file = {}
+window.jTester.downlist = []
 
 try
   config = fs.readFileSync rootdir + '/config.json' , { encoding : "utf-8" }
@@ -24,6 +25,10 @@ try
       jTester.config.headers = {}
     if !jTester.config.defaultPath
       jTester.config.defaultPath = "D:\\"
+
+  downlist = fs.readFileSync rootdir + '/download.json' , { encoding : "utf-8" }
+  if downlist
+    jTester.downlist = JSON.parse downlist
 catch e
   jTester.config =
     headers : {}
@@ -32,25 +37,40 @@ catch e
   alert e.message
 
 window.jTester.global =
+  URL : URL
+  fileExistsSync : (path)->
+    return fs.existsSync path
   saveConfig : ()->
     try
       config = JSON.stringify window.jTester.config
       fs.writeFileSync rootdir + '/config.json' , config , { encoding : "utf-8" }
     catch e
       alert e.message
+  saveDownlist : ()->
+    try
+      downlist = JSON.stringify window.jTester.downlist
+      fs.writeFileSync rootdir + '/download.json' , downlist , { encoding : "utf-8" }
+    catch e
+      alert e.message
+  showItemInFolder : (path)->
+    nw.Shell.showItemInFolder(path)
   showDevTools : ()->
     nw.Window.get().showDevTools()
   templateUrls :
     config : rootdir + "/views/config.html"
+    alert : rootdir + "/views/alert.html"
     file : rootdir + "/views/file.html"
     savefile : rootdir + "/views/savefile.html"
+    downloadlist : rootdir + "/views/downloadlist.html"
 
-app = angular.module 'jTester' , ['ui.bootstrap' ]
+app = angular.module 'jTester' , ['ui.bootstrap']
 app.run ($templateCache)->
   window.templateCache = $templateCache
   $templateCache.put jTester.global.templateUrls.config , fs.readFileSync jTester.global.templateUrls.config , { encoding : "utf-8" }
+  $templateCache.put jTester.global.templateUrls.alert , fs.readFileSync jTester.global.templateUrls.alert , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.file , fs.readFileSync jTester.global.templateUrls.file , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.savefile , fs.readFileSync jTester.global.templateUrls.savefile , { encoding : "utf-8" }
+  $templateCache.put jTester.global.templateUrls.downloadlist , fs.readFileSync jTester.global.templateUrls.downloadlist , { encoding : "utf-8" }
 
 
 ########################## class jTester.http ##############################
@@ -131,18 +151,36 @@ class window.jTester.http
       path : url + QueryString.stringify @params.data
       headers : jTester.config.headers
     @$context.$modalInstance.close 'dismiss'
-
+    @$context.action.submit = true
     HTTP.get options , (res)=>
       filename = @getFileName res.headers['content-disposition']
       ext = Path.extname filename
-      filename ?= @params.action
+      if !filename
+        filename = @params.action
       file = @createFile @params.downdir , filename , ext
-      res.on('data' , (chunk) ->
-        file.write chunk
-      ).on('end' , ()->
+      if res.statusCode == 200
+        res.on('data' , (chunk) ->
+          file.write chunk
+        ).on('end' , ()=>
+          file.end()
+          jTester.alert.success "#{file.path} 已下载完成"
+          #添加到下载内容历史记录列表中
+          jTester.downlist.push {
+            filename : Path.basename file.path
+            link : URL.resolve jTester.config.host , options.path
+            path : file.path
+          }
+          jTester.global.saveDownlist()
+          @$context.action.submit = false
+        )
+      else
+        jTester.alert.error "下载出错,HTTP #{res.statusCode}"
         file.end()
-        jTester.alert.success "#{file.path} 已下载完成"
-      ).on('error' ,(e)->
+        fs.unlinkSync file.path
+        @$context.action.submit = false
+
+      res.on('error' ,(e)=>
+        @$context.action.submit = false
         jTester.alert.error e.message
       )
 

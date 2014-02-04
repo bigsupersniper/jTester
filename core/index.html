@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html ng-app="jTester">
 <head>
-    <title></title>
+    <title>jTester</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/jsonview.css" />
     <script src="lib/angular.min.js"></script>
     <script src="lib/ui-bootstrap-tpls-0.10.0.min.js"></script>
-    <!--<script src="lib/jquery-2.0.3.min.js"></script>-->
     <script src="lib/jsonview.js"></script>
     <script src="js/config.js"></script>
     <script src="js/controller.js"></script>
     <script src="js/indexcontroller.js"></script>
-    <style>
-        .modal-content{
-            margin-top: 100px;
-            width: 800px;
-            margin-left: -100px;
-        }
+    <style type="text/css">
         .fileinput-open input {
             position: absolute;
             top: 0;
@@ -50,9 +44,12 @@
     <div ng-controller="IndexCtrl">
 
         <nav class="navbar-inverse navbar-fixed-top" role="banner">
-            <a class="navbar-brand" ng-click="showDevTools()">jTester</a>
+            <a class="navbar-brand" ng-click="showDevTools()"><strong>jTester</strong></a>
             <ul class="nav navbar-nav">
-                <li ng-repeat="menu in menus"><a ng-click="menu.click()">{{ menu.title }}</a></li>
+                <li ng-repeat="menu in menus"><a ng-click="menu.click()"><strong>{{ menu.title }}</strong></a></li>
+            </ul>
+            <ul class="nav navbar-right" style="margin-right:30px">
+                <li><span class="badge" style="margin-top: 15px;cursor: pointer;">?</span></li>
             </ul>
         </nav>
 
@@ -68,7 +65,7 @@
                                 <accordion close-others="true">
                                     <accordion-group ng-repeat="action in tab.actions" is-open="isopen">
                                         <accordion-heading>
-                                            {{action.action}}
+                                            <strong>{{action.action}}</strong>
                                             <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
                                         </accordion-heading>
                                         <textarea style="background-color:#ddd;" class="form-control" rows="{{ action.rows }}"  ng-model="action.script"></textarea>
