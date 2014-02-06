@@ -57,6 +57,7 @@ window.jTester.global =
   showDevTools : ()->
     nw.Window.get().showDevTools()
   templateUrls :
+    about : rootdir + "/views/about.html"
     config : rootdir + "/views/config.html"
     alert : rootdir + "/views/alert.html"
     file : rootdir + "/views/file.html"
@@ -65,7 +66,7 @@ window.jTester.global =
 
 app = angular.module 'jTester' , ['ui.bootstrap']
 app.run ($templateCache)->
-  window.templateCache = $templateCache
+  $templateCache.put jTester.global.templateUrls.about , fs.readFileSync jTester.global.templateUrls.about , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.config , fs.readFileSync jTester.global.templateUrls.config , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.alert , fs.readFileSync jTester.global.templateUrls.alert , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.file , fs.readFileSync jTester.global.templateUrls.file , { encoding : "utf-8" }

@@ -21,10 +21,3 @@ window.Controllers =
         controller : "home"
         action : "down"
       new jTester.file.saveFile $context
-
-  Dir :
-    GetDirTree : ()->
-      $context.params =
-        controller : "Dir"
-        action : "GetDirTree"
-      new jTester.http($context).post()

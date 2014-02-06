@@ -113,6 +113,14 @@
         }
         return _results;
       };
+      $scope.openAbout = function() {
+        var $modalInstance;
+        return $modalInstance = $modal.open({
+          templateUrl: jTester.global.templateUrls.about,
+          backdrop: 'center',
+          controller: function($scope) {}
+        });
+      };
       openOptions = function() {
         var $modalInstance;
         return $modalInstance = $modal.open({

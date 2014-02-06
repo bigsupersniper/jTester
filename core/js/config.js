@@ -95,6 +95,7 @@
       return nw.Window.get().showDevTools();
     },
     templateUrls: {
+      about: rootdir + "/views/about.html",
       config: rootdir + "/views/config.html",
       alert: rootdir + "/views/alert.html",
       file: rootdir + "/views/file.html",
@@ -106,7 +107,9 @@
   app = angular.module('jTester', ['ui.bootstrap']);
 
   app.run(function($templateCache) {
-    window.templateCache = $templateCache;
+    $templateCache.put(jTester.global.templateUrls.about, fs.readFileSync(jTester.global.templateUrls.about, {
+      encoding: "utf-8"
+    }));
     $templateCache.put(jTester.global.templateUrls.config, fs.readFileSync(jTester.global.templateUrls.config, {
       encoding: "utf-8"
     }));

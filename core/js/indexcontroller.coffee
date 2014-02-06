@@ -91,6 +91,14 @@ class window.IndexCtrl
           }
         $scope.tabs.push tab
 
+    $scope.openAbout = ()->
+      $modalInstance = $modal.open {
+        templateUrl: jTester.global.templateUrls.about
+        backdrop : 'center'
+        controller: ($scope)->
+
+      }
+
     openOptions = ()->
       $modalInstance = $modal.open {
         templateUrl: jTester.global.templateUrls.config

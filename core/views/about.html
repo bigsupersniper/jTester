@@ -1,0 +1,53 @@
+
+<style type="text/css">
+    .modal-content{
+        margin-top: 50px;
+        width: 950px;
+        margin-left: -175px;
+    }
+    .doc-text{
+        margin-left: 20px;
+    }
+</style>
+
+<div style="margin: 10px;">
+    <div class="modal-header" style="padding: 5px;">
+        <h4>文档</h4>
+    </div>
+    <div class="modal-body">
+        <div class="well" style="height: 380px;overflow-y: auto">
+            <h4>$context</h4>
+            <div class="doc-text">
+                <p><strong>$context</strong> 为全局注入对象，其最主要的属性是 <strong>params</strong> , 而 <strong>params</strong> 有以下属性</p>
+                <ul>
+                    <li><strong>controller</strong> -- (string) controller名称</li>
+                    <li><strong>action</strong> -- (string)  action名称</li>
+                    <li><strong>data</strong> -- (object)  参数集合</li>
+                </ul>
+            </div>
+
+            <h4>file (jTester.file)</h4>
+            <div class="doc-text">
+                <p>file 有2个公用方法 <strong>openFile</strong> 和 <strong>saveFile</strong></p>
+                <ul>
+                    <li><strong>openFile($context)</strong> -- 用来上传的文件</li>
+                    <li><strong>saveFile($context)</strong> -- 用来下载的文件</li>
+                </ul>
+            </div>
+
+            <h4>http (jTester.http)</h4>
+            <div class="doc-text">
+                <p>http 为http请求类 , 其构造方法为: http($context) , 有以下公用方法</p>
+                <ul>
+                    <li><strong>get()</strong> -- http get请求</li>
+                    <li><strong>post()</strong> -- http post请求</li>
+                    <li><strong>put()</strong> -- http put请求</li>
+                    <li><strong>delete()</strong> -- http delete请求</li>
+                    <li><strong>down()</strong> -- 下载文件请求，已经封装在 file.saveFile($context)中了</li>
+                    <li><strong>upload()</strong> -- 上传文件请求，已经封装在 file.openFile($context)中了</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
