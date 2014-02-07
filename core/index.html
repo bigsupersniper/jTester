@@ -37,52 +37,64 @@
         a{
             cursor: pointer;
         }
+        #loader { position:absolute; top:0; left:0; right:0; bottom:0; width:100vw; height:100vh; display:table;
+            background-color: #333 ;text-align:center; box-sizing:border-box; vertical-align:middle;}
+        #loader p { color: #ffffff; display:table-cell; vertical-align:middle; text-align:center;font-size: 60px; font-weight: bolder; }
     </style>
 </head>
 <body >
 
     <div ng-controller="IndexCtrl">
 
-        <nav class="navbar-inverse navbar-fixed-top" role="banner">
-            <a class="navbar-brand" ng-click="showDevTools()"><strong>jTester</strong></a>
-            <ul class="nav navbar-nav">
-                <li ng-repeat="menu in menus"><a ng-click="menu.click()"><strong>{{ menu.title }}</strong></a></li>
-            </ul>
-            <ul class="nav navbar-right" style="margin-right:30px">
-                <li ng-click="openAbout()"><span class="badge" style="margin-top: 15px;cursor: pointer;">?</span></li>
-            </ul>
-        </nav>
-
-        <div style="margin: 8px ;margin-top: 60px;">
-            <tabset>
-                <tab ng-repeat="tab in tabs" heading="{{tab.controller}}" active="tab.active" >
-                    <div class="tab-pane fade in" style="margin-top: 10px;" >
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">{{tab.controller}} <span class="badge pull-right">{{ tab.actions.length }}</span></h4>
-                            </div>
-                            <div class="panel-body">
-                                <accordion close-others="true">
-                                    <accordion-group ng-repeat="action in tab.actions" is-open="isopen">
-                                        <accordion-heading>
-                                            <strong>{{action.action}}</strong>
-                                            <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
-                                        </accordion-heading>
-                                        <textarea style="background-color:#ddd;" class="form-control" rows="{{ action.rows }}"  ng-model="action.script"></textarea>
-                                        <button class="btn btn-primary" style="margin-top: 15px;" ng-click="action.exec()" ng-disabled="action.submit" >{{ !action.submit ? 'Submit' : 'Loading' }}</button>
-                                        <div class="well" style="margin-top: 15px" ng-bind-html="action.result"></div>
-                                    </accordion-group>
-                                </accordion>
-                            </div>
-                        </div>
-                    </div>
-                </tab>
-            </tabset>
+        <div id="loader" ng-show="loading">
+            <p>
+                jTester
+            </p>
         </div>
 
-        <nav class="navbar navbar-inverse navbar-fixed-bottom" >
-            <p class="navbar-text" style="float :none; text-align: center">Design by <em>LINFENG</em> © 2013 - 2014</p>
-        </nav>
+        <div ng-show="!loading">
+            <nav class="navbar-inverse navbar-fixed-top" role="banner">
+                <a class="navbar-brand" ng-click="showDevTools()"><strong>jTester</strong></a>
+                <ul class="nav navbar-nav">
+                    <li ng-repeat="menu in menus"><a ng-click="menu.click()"><strong>{{ menu.title }}</strong></a></li>
+                </ul>
+                <ul class="nav navbar-right" style="margin-right:30px">
+                    <li ng-click="openAbout()"><span class="badge" style="margin-top: 15px;cursor: pointer;">?</span></li>
+                </ul>
+            </nav>
+
+            <div style="margin: 8px ;margin-top: 60px;">
+                <tabset>
+                    <tab ng-repeat="tab in tabs" heading="{{tab.controller}}" active="tab.active" >
+                        <div class="tab-pane fade in" style="margin-top: 10px;" >
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">{{tab.controller}} <span class="badge pull-right">{{ tab.actions.length }}</span></h4>
+                                </div>
+                                <div class="panel-body">
+                                    <accordion close-others="true">
+                                        <accordion-group ng-repeat="action in tab.actions" is-open="isopen">
+                                            <accordion-heading>
+                                                <strong>{{action.action}}</strong>
+                                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                                            </accordion-heading>
+                                            <textarea style="background-color:#ddd;" class="form-control" rows="{{ action.rows }}"  ng-model="action.script"></textarea>
+                                            <button class="btn btn-primary" style="margin-top: 15px;" ng-click="action.exec()" ng-disabled="action.submit" >{{ !action.submit ? 'Submit' : 'Loading' }}</button>
+                                            <div class="well" style="margin-top: 15px" ng-bind-html="action.result"></div>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+
+            <nav class="navbar navbar-inverse navbar-fixed-bottom" >
+                <p class="navbar-text" style="float :none; text-align: center">Design by <em>LINFENG</em> © 2013 - 2014</p>
+            </nav>
+
+        </div>
 
     </div>
 

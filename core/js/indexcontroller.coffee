@@ -2,7 +2,12 @@
 #################### class IndexCtrl ####################################
 
 class window.IndexCtrl
-  constructor : ($scope , $http , $modal ,$sce ) ->
+  constructor : ($scope , $http , $modal ,$sce , $timeout) ->
+
+    $scope.loading = true
+    $timeout ()->
+      $scope.loading = false
+    , 1500
 
     $scope.menus = [
       {
