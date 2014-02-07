@@ -269,6 +269,12 @@
         $scope.items.splice(index, 1);
         return jTester.global.saveDownlist();
       };
+      $scope["delete"] = function(index) {
+        var file;
+        file = $scope.items.splice(index, 1);
+        jTester.global.saveDownlist();
+        return jTester.global.rmfile(file[0].path);
+      };
       $scope.clear = function() {
         jTester.downlist = [];
         $scope.items = [];

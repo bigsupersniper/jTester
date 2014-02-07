@@ -227,6 +227,11 @@ class window.DownlistCtrl
       $scope.items.splice index , 1
       jTester.global.saveDownlist()
 
+    $scope.delete = (index)->
+      file = $scope.items.splice index , 1
+      jTester.global.saveDownlist()
+      jTester.global.rmfile file[0].path
+
     $scope.clear = ()->
       jTester.downlist = []
       $scope.items = []

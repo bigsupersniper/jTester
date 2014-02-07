@@ -38,6 +38,9 @@ catch e
 
 window.jTester.global =
   URL : URL
+  rmfile : (path)->
+    if fs.existsSync path
+      fs.unlinkSync path
   fileExistsSync : (path)->
     return fs.existsSync path
   saveConfig : ()->
