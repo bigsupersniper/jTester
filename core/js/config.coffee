@@ -4,8 +4,8 @@ fs = require 'fs'
 Path = require 'path'
 QueryString = require 'querystring'
 URL = require 'url'
-HTTP = require 'http'
-FormData = require './node_modules/form-data'
+request = require './node_modules/request'
+FormData = require './node_modules/request/node_modules/form-data'
 rootdir = "./core"
 
 process.on 'uncaughtException' , (err)->
@@ -89,7 +89,7 @@ class window.jTester.http
     @execProxy = (method) ->
       @action.submit = true
       url = URL.resolve jTester.config.host , "/#{@params.controller}/#{@params.action}/"
-      @$http({method : method , url : url , headers: jTester.config.headers, params : @params.data })
+      @$http({method : method , url : url , headers: jTester.config.headers, data : @params.data })
       .success (data , status , headers , config) =>
           @action.submit = false
           dataType = headers("content-type") || ""
@@ -146,50 +146,55 @@ class window.jTester.http
     @execProxy "DELETE"
 
   down : () ->
-    url = "/#{@params.controller}/#{@params.action}"
-    urlobj = URL.parse(jTester.config.host)
-    options =
-      host : urlobj.hostname
-      port : urlobj.port || 80
-      method : "GET"
-      path : url + QueryString.stringify @params.data
-      headers : jTester.config.headers
     @$context.$modalInstance.close 'dismiss'
     @$context.action.submit = true
-    HTTP.get options , (res)=>
+    options =
+      uri : URL.resolve jTester.config.host , "/#{@params.controller}/#{@params.action}/"
+      method : "GET",
+      headers : jTester.config.headers
+      form : @params.data
+
+    req = request options
+    req.on 'response' , (res)=>
+      console.log res
       filename = @getFileName res.headers['content-disposition']
       ext = Path.extname filename
       if !filename
         filename = @params.action
       file = @createFile @params.downdir , filename , ext
       if res.statusCode == 200
-        res.on('data' , (chunk) ->
+        res.on 'data' , (chunk) ->
           file.write chunk
-        ).on('end' , ()=>
+        res.on 'end' , ()=>
           file.end()
           jTester.alert.success "#{file.path} 已下载完成"
           #添加到下载内容历史记录列表中
           jTester.downlist.push {
             filename : Path.basename file.path
-            link : URL.resolve jTester.config.host , options.path
+            link : options.uri + QueryString.stringify @params.data
             path : file.path
           }
           jTester.global.saveDownlist()
           @$context.action.submit = false
-        )
       else
         jTester.alert.error "下载出错,HTTP #{res.statusCode}"
         file.end()
         fs.unlinkSync file.path
         @$context.action.submit = false
 
-      res.on('error' ,(e)=>
+      res.on 'error' ,(e)=>
         @$context.action.submit = false
         jTester.alert.error e.message
-      )
 
   upload : ()->
+    @action.submit = true
+    #close modal
+    @$context.$modalInstance.close 'dismiss'
+
+    url = URL.resolve jTester.config.host , "/#{@params.controller}/#{@params.action}/"
     form = new FormData()
+    #form.maxDataSize = @$context.maxDataSize * 1024 * 1024 if @$context.maxDataSize
+
     if @params.data
       for k , v of @params.data
         form.append k , v
@@ -198,11 +203,6 @@ class window.jTester.http
       for file , i in @params.files
         form.append 'file' + i , fs.createReadStream file
 
-    @action.submit = true
-    #close modal
-    @$context.$modalInstance.close 'dismiss'
-
-    url = URL.resolve jTester.config.host , "/#{@params.controller}/#{@params.action}/"
     #modify form-data source submit(parms , cb) to submit(params , headers , cb)
     form.submit url , jTester.config.headers , (err , res)=>
       if err
@@ -218,3 +218,5 @@ class window.jTester.http
             @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{new JSONFormatter().jsonToHTML(data)}"
           else
             @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{data}"
+
+

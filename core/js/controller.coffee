@@ -15,6 +15,7 @@ window.Controllers =
       $context.params =
         controller : "home"
         action : "upload"
+      $context.maxDataSize = 10
       jTester.file.openFile $context
     Down : ()->
       $context.params =
