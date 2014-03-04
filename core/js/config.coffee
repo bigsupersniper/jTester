@@ -67,8 +67,8 @@ window.jTester.global =
     savefile : rootdir + "/views/savefile.html"
     downloadlist : rootdir + "/views/downloadlist.html"
 
-app = angular.module 'jTester' , ['ui.bootstrap']
-app.run ($templateCache)->
+window.appjTester = angular.module 'jTester' , ['ui.bootstrap']
+appjTester.run ($templateCache)->
   $templateCache.put jTester.global.templateUrls.about , fs.readFileSync jTester.global.templateUrls.about , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.config , fs.readFileSync jTester.global.templateUrls.config , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.alert , fs.readFileSync jTester.global.templateUrls.alert , { encoding : "utf-8" }
