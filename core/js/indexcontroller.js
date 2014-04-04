@@ -290,5 +290,3 @@
   })());
 
 }).call(this);
-
-//# sourceMappingURL=indexcontroller.map

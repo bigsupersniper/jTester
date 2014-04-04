@@ -132,6 +132,32 @@
     }));
   });
 
+  window.jTester.AES = {
+    encrypt: function(key, data) {
+      var encrypted, iv;
+      iv = CryptoJS.enc.Utf8.parse(key.slice(0, 16));
+      key = CryptoJS.enc.Utf8.parse(key);
+      data = CryptoJS.enc.Utf8.parse(data);
+      encrypted = CryptoJS.AES.encrypt(data, key, {
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Iso10126,
+        iv: iv
+      });
+      return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+    },
+    decrypt: function(key, data) {
+      var decrypted, iv;
+      iv = CryptoJS.enc.Utf8.parse(key.slice(0, 16));
+      key = CryptoJS.enc.Utf8.parse(key);
+      decrypted = CryptoJS.AES.decrypt(data, key, {
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Iso10126,
+        iv: iv
+      });
+      return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+  };
+
   window.jTester.http = (function() {
     function http($context) {
       this.$context = $context;
@@ -139,6 +165,8 @@
       this.$sce = $context.$sce || {};
       this.params = $context.params || {};
       this.action = $context.action || {};
+      this.cipher = this.params.cipher || false;
+      this.cipherKey = this.params.cipherKey || "";
       this.execProxy = function(method) {
         var url;
         this.action.submit = true;
@@ -154,6 +182,9 @@
             _this.action.submit = false;
             dataType = headers("content-type") || "";
             if (dataType.indexOf("application/json" > -1)) {
+              if (_this.cipher && _this.cipherKey && data.Data) {
+                data.Data = JSON.parse(jTester.AES.decrypt(_this.cipherKey, data.Data));
+              }
               return _this.action.result = _this.$sce.trustAsHtml("" + (new Date().toLocaleString()) + " <p></p> " + (new JSONFormatter().jsonToHTML(data)));
             } else {
               return _this.action.result = _this.$sce.trustAsHtml("" + (new Date().toLocaleString()) + " <p></p> " + data + "}");
@@ -326,4 +357,10 @@
 
 }).call(this);
 
-//# sourceMappingURL=config.map
+
+
+
+
+
+
+
