@@ -171,12 +171,25 @@
         var url;
         this.action.submit = true;
         url = URL.resolve(jTester.config.host, "/" + this.params.controller + "/" + this.params.action + "/");
-        return this.$http({
+        config = {
           method: method,
           url: url,
           headers: jTester.config.headers,
           data: this.params.data
-        }).success((function(_this) {
+        };
+        if (method === "POST") {
+          config.transformRequest = function(obj) {
+            var k, str, v;
+            str = [];
+            for (k in obj) {
+              v = obj[k];
+              str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
+            }
+            return str.join('&');
+          };
+          config.headers["Content-Type"] = "application/x-www-form-urlencoded";
+        }
+        return this.$http(config).success((function(_this) {
           return function(data, status, headers, config) {
             var dataType;
             _this.action.submit = false;

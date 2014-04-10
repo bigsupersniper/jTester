@@ -116,8 +116,16 @@ class window.jTester.http
     @execProxy = (method) ->
       @action.submit = true
       url = URL.resolve jTester.config.host , "/#{@params.controller}/#{@params.action}/"
-      @$http({method : method , url : url , headers: jTester.config.headers, data : @params.data })
-      .success (data , status , headers , config) =>
+      config = {method : method , url : url , headers: jTester.config.headers, data : @params.data }
+      if method == "POST"
+        config.transformRequest = (obj)->
+          str = []
+          for k , v of obj
+            str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v))
+          return str.join '&'
+        config.headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+      @$http(config).success (data , status , headers , config) =>
           @action.submit = false
           dataType = headers("content-type") || ""
           if dataType.indexOf "application/json" > -1
