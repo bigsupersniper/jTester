@@ -76,32 +76,6 @@ appjTester.run ($templateCache)->
   $templateCache.put jTester.global.templateUrls.savefile , fs.readFileSync jTester.global.templateUrls.savefile , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.downloadlist , fs.readFileSync jTester.global.templateUrls.downloadlist , { encoding : "utf-8" }
 
-window.jTester.AES =
-  encrypt : (key , data)->
-    iv =  CryptoJS.enc.Utf8.parse key.slice(0 , 16)
-    key = CryptoJS.enc.Utf8.parse key
-    data = CryptoJS.enc.Utf8.parse data
-
-    encrypted = CryptoJS.AES.encrypt(data, key , {
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Iso10126,
-      iv : iv
-    })
-
-    return encrypted.ciphertext.toString CryptoJS.enc.Base64
-
-  decrypt : (key , data)->
-    iv =  CryptoJS.enc.Utf8.parse key.slice(0 , 16)
-    key = CryptoJS.enc.Utf8.parse key
-
-    decrypted = CryptoJS.AES.decrypt(data, key , {
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Iso10126,
-      iv : iv
-    })
-
-    return decrypted.toString(CryptoJS.enc.Utf8)
-
 ########################## class jTester.http ##############################
 class window.jTester.http
   constructor : ($context)->
@@ -110,8 +84,7 @@ class window.jTester.http
     @$sce = $context.$sce || {}
     @params = $context.params || {}
     @action = $context.action || {}
-    @cipher = @params.cipher || false
-    @cipherKey = @params.cipherKey || ""
+    @cipher = $context.cipher || (data)-> return data
 
     @execProxy = (method) ->
       @action.submit = true
@@ -129,8 +102,7 @@ class window.jTester.http
           @action.submit = false
           dataType = headers("content-type") || ""
           if dataType.indexOf "application/json" > -1
-            if @cipher and @cipherKey and data.Data
-              data.Data = JSON.parse jTester.AES.decrypt @cipherKey , data.Data
+            data = @cipher(data)
             @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{new JSONFormatter().jsonToHTML(data)}"
           else
             @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{data}}"

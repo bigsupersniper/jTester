@@ -9,9 +9,11 @@
     <script src="lib/ui-bootstrap-tpls-0.10.0.min.js"></script>
     <script src="lib/jsonview.js"></script>
     <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/controller.js"></script>
     <script src="js/indexcontroller.js"></script>
 
+    <script src="lib/rollups/md5.js"></script>
     <script src="lib/rollups/aes.js"></script>
     <script src="lib/components/mode-ecb-min.js"></script>
     <style type="text/css">
@@ -45,36 +47,6 @@
         #loader p { color: #ffffff; display:table-cell; vertical-align:middle; text-align:center;font-size: 60px; font-weight: bolder; }
     </style>
 
-    <script>
-
-        function encrypt (key , data){
-            var iv =  CryptoJS.enc.Utf8.parse(key.slice(0 , 16));
-            key = CryptoJS.enc.Utf8.parse(key);
-            data = CryptoJS.enc.Utf8.parse(data);
-
-            var encrypted = CryptoJS.AES.encrypt(data, key , {
-                mode: CryptoJS.mode.CBC,
-                padding: CryptoJS.pad.Iso10126,
-                iv : iv
-            });
-
-            return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
-        }
-
-        function decrypt(key , data){
-            var iv =  CryptoJS.enc.Utf8.parse(key.slice(0 , 16));
-            key = CryptoJS.enc.Utf8.parse(key);
-
-            var decrypted = CryptoJS.AES.decrypt(data, key , {
-                mode: CryptoJS.mode.CBC,
-                padding: CryptoJS.pad.Iso10126,
-                iv : iv
-            });
-
-            return decrypted.toString(CryptoJS.enc.Utf8)
-        }
-
-    </script>
 </head>
 <body >
 
