@@ -12,9 +12,14 @@ appjTester.controller 'IndexCtrl' ,
 
       $scope.menus = [
         {
-          title :  "设置"
+          title :  "请求配置"
           click : ()->
             openOptions()
+        }
+        {
+          title :  "全局项配置"
+          click : ()->
+            openItems()
         }
         {
           title :  "下载内容"
@@ -112,6 +117,13 @@ appjTester.controller 'IndexCtrl' ,
           controller: 'ConfigCtrl'
         }
 
+      openItems = ()->
+        $modal.open {
+          templateUrl: jTester.global.templateUrls.globalitem
+          backdrop : 'static'
+          controller: 'GlobalItemCtrl'
+        }
+
       openDownloads = ()->
         $modalInstance = $modal.open {
           templateUrl: jTester.global.templateUrls.downloadlist
@@ -159,6 +171,11 @@ appjTester.controller 'ConfigCtrl' ,
         $scope.config.key = ""
         $scope.config.value = ""
 
+      $scope.reset = (index)->
+        header = $scope.headers[index]
+        $scope.config.key = header.key
+        $scope.config.value = header.value
+
       $scope.remove = (index)->
         header = $scope.headers[index]
         delete headers[header.key]
@@ -176,6 +193,51 @@ appjTester.controller 'ConfigCtrl' ,
           alert '请先设置服务器地址'
         else
           $modalInstance.close 'dismiss'
+
+########################## class GlobalItemCtrl ##############################
+
+appjTester.controller 'GlobalItemCtrl' ,
+  class GlobalItemCtrl
+    constructor : ($scope , $modalInstance) ->
+      jTester = window.jTester
+      items = jTester.config.globalitems || {}
+      $scope.items = []
+      $scope.item = {}
+
+      objToArray = ()->
+        $scope.items = []
+        for k , v of items
+          $scope.items.push ({
+            key : k
+            value : v
+          })
+
+      objToArray()
+
+      $scope.set = ()->
+        items[$scope.item.key]= $scope.item.value
+        objToArray()
+        $scope.item.key = ""
+        $scope.item.value = ""
+
+      $scope.reset = (index)->
+        item = $scope.items[index]
+        $scope.item.key = item.key
+        $scope.item.value = item.value
+
+      $scope.remove = (index)->
+        item = $scope.items[index]
+        delete items[item.key]
+        $scope.items.splice index , 1
+
+      $scope.save = ()->
+        jTester.config.globalitems = items
+        jTester.global.saveConfig()
+        $modalInstance.close 'success'
+
+      $scope.cancel = ()->
+        $modalInstance.close 'dismiss'
+
 
 ########################## class OpenFileCtrl ##############################
 

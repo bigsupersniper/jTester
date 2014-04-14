@@ -1,4 +1,11 @@
 
+
+window.datadecrypt = (api_secret , data)->
+  if data.data != "" && data.success
+    data.data = jTester.AES.decrypt api_secret , data.data
+    data.data = JSON.parse data.data
+  return data
+
 window.Controllers =
   Home :
     Get : ()->
