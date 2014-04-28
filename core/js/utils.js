@@ -33,6 +33,9 @@
     },
     getMd5Hash: function(str) {
       return CryptoJS.MD5(str + '').toString(CryptoJS.enc.Hex);
+    },
+    getGuid: function() {
+      return UUID.v4().replace(/-/g, "");
     }
   };
 

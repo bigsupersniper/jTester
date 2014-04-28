@@ -30,3 +30,5 @@ window.jTester.utils =
     return temp
   getMd5Hash : (str)->
     return CryptoJS.MD5(str + '').toString(CryptoJS.enc.Hex)
+  getGuid : ()->
+    return UUID.v4().replace(/-/g , "")

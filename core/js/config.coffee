@@ -5,6 +5,7 @@ Path = require 'path'
 QueryString = require 'querystring'
 URL = require 'url'
 request = require './node_modules/request'
+window.UUID = require './node_modules/node-uuid'
 FormData = require './node_modules/request/node_modules/form-data'
 rootdir = "./core"
 
