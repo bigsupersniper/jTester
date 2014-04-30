@@ -82,9 +82,6 @@ appjTester.controller 'IndexCtrl' ,
       $scope.tabs = []
       resolve = (obj) ->
         obj ?= {}
-        $context =
-          $http : $http
-          $sce : $sce
         for ck , cv of obj
           tab =
             controller : ck
@@ -96,7 +93,10 @@ appjTester.controller 'IndexCtrl' ,
               rows : av.toString().match(///\n///g).length + 2
               exec : ()->
                 that = this
-                $context.action = that
+                $context =
+                  $http : $http
+                  $sce : $sce
+                  action : that
                 if that.script.length > 10
                   eval "(#{that.script})($context);"
             }

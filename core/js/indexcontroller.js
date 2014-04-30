@@ -89,14 +89,10 @@
       };
       $scope.tabs = [];
       resolve = function(obj) {
-        var $context, ak, av, ck, cv, tab, _results;
+        var ak, av, ck, cv, tab, _results;
         if (obj == null) {
           obj = {};
         }
-        $context = {
-          $http: $http,
-          $sce: $sce
-        };
         _results = [];
         for (ck in obj) {
           cv = obj[ck];
@@ -111,9 +107,13 @@
               script: av.toString(),
               rows: av.toString().match(/\n/g).length + 2,
               exec: function() {
-                var that;
+                var $context, that;
                 that = this;
-                $context.action = that;
+                $context = {
+                  $http: $http,
+                  $sce: $sce,
+                  action: that
+                };
                 if (that.script.length > 10) {
                   return eval("(" + that.script + ")($context);");
                 }
