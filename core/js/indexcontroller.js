@@ -3,7 +3,7 @@
   var ConfigCtrl, DownlistCtrl, GlobalItemCtrl, IndexCtrl, OpenFileCtrl, SaveFileCtrl;
 
   appjTester.controller('IndexCtrl', IndexCtrl = (function() {
-    function IndexCtrl($scope, $http, $modal, $sce, $timeout) {
+    function IndexCtrl($scope, $http, $modal, $sce, $timeout, $window) {
       var openDownloads, openItems, openOptions, resolve;
       $scope.loading = true;
       $timeout(function() {
@@ -24,6 +24,11 @@
           title: "下载内容",
           click: function() {
             return openDownloads();
+          }
+        }, {
+          title: "刷新",
+          click: function() {
+            return $window.location.reload();
           }
         }
       ];

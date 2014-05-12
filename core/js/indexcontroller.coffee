@@ -3,7 +3,7 @@
 
 appjTester.controller 'IndexCtrl' ,
   class IndexCtrl
-    constructor : ($scope , $http , $modal ,$sce , $timeout) ->
+    constructor : ($scope , $http , $modal ,$sce , $timeout , $window) ->
 
       $scope.loading = true
       $timeout ()->
@@ -25,6 +25,11 @@ appjTester.controller 'IndexCtrl' ,
           title :  "下载内容"
           click : ()->
             openDownloads()
+        }
+        {
+          title :  "刷新"
+          click : ()->
+            $window.location.reload()
         }
       ]
 

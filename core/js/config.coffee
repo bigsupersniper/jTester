@@ -111,6 +111,10 @@ class window.jTester.http
             @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{data}}"
       .error (data , status , headers, config) =>
           @action.submit = false
+          console.log data
+          console.log status
+          console.log headers
+          console.log config
           jTester.alert.error "#{url} , 请求失败"
 
     @getFileName = (cd)->
