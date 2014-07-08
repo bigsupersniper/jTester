@@ -69,7 +69,7 @@ window.jTester.global =
     savefile : rootdir + "/views/savefile.html"
     downloadlist : rootdir + "/views/downloadlist.html"
 
-window.appjTester = angular.module 'jTester' , ['ui.bootstrap']
+window.appjTester = angular.module 'jTester' , ['ui.bootstrap' , 'angularFileUpload']
 appjTester.run ($templateCache)->
   $templateCache.put jTester.global.templateUrls.about , fs.readFileSync jTester.global.templateUrls.about , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.config , fs.readFileSync jTester.global.templateUrls.config , { encoding : "utf-8" }
@@ -111,10 +111,6 @@ class window.jTester.http
             @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{data}}"
       .error (data , status , headers, config) =>
           @action.submit = false
-          console.log data
-          console.log status
-          console.log headers
-          console.log config
           jTester.alert.error "#{url} , 请求失败"
 
     @getFileName = (cd)->

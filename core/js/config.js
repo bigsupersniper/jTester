@@ -112,7 +112,7 @@
     }
   };
 
-  window.appjTester = angular.module('jTester', ['ui.bootstrap']);
+  window.appjTester = angular.module('jTester', ['ui.bootstrap', 'angularFileUpload']);
 
   appjTester.run(function($templateCache) {
     $templateCache.put(jTester.global.templateUrls.about, fs.readFileSync(jTester.global.templateUrls.about, {
@@ -185,10 +185,6 @@
         })(this)).error((function(_this) {
           return function(data, status, headers, config) {
             _this.action.submit = false;
-            console.log(data);
-            console.log(status);
-            console.log(headers);
-            console.log(config);
             return jTester.alert.error("" + url + " , 请求失败");
           };
         })(this));

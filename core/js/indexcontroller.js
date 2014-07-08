@@ -287,7 +287,7 @@
 
   })());
 
-  OpenFileCtrl = (function() {
+  appjTester.controller('OpenFileCtrl', OpenFileCtrl = (function() {
     function OpenFileCtrl($scope, $modalInstance, context) {
       context.$modalInstance = $modalInstance;
       $scope.files = [];
@@ -308,7 +308,7 @@
 
     return OpenFileCtrl;
 
-  })();
+  })());
 
   appjTester.controller('SaveFileCtrl', SaveFileCtrl = (function() {
     function SaveFileCtrl($scope, $modalInstance, context) {
