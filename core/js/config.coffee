@@ -61,6 +61,7 @@ window.jTester.global =
   showDevTools : ()->
     nw.Window.get().showDevTools()
   templateUrls :
+    help : rootdir + "/views/help.html"
     about : rootdir + "/views/about.html"
     config : rootdir + "/views/config.html"
     globalitem : rootdir + "/views/globalitem.html"
@@ -72,6 +73,7 @@ window.jTester.global =
 window.appjTester = angular.module 'jTester' , ['ui.bootstrap' , 'angularFileUpload']
 appjTester.run ($templateCache)->
   $templateCache.put jTester.global.templateUrls.about , fs.readFileSync jTester.global.templateUrls.about , { encoding : "utf-8" }
+  $templateCache.put jTester.global.templateUrls.help , fs.readFileSync jTester.global.templateUrls.help , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.config , fs.readFileSync jTester.global.templateUrls.config , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.globalitem , fs.readFileSync jTester.global.templateUrls.globalitem , { encoding : "utf-8" }
   $templateCache.put jTester.global.templateUrls.alert , fs.readFileSync jTester.global.templateUrls.alert , { encoding : "utf-8" }

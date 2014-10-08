@@ -111,6 +111,23 @@ appjTester.controller 'IndexCtrl' ,
         $modal.open {
           templateUrl: jTester.global.templateUrls.about
           backdrop : 'center'
+          controller : ($scope)->
+            $scope.versions = [
+              { title : "jTester", value : "v0.1.0" }
+              { title : "Chromium", value : process.versions['chromium'] }
+              { title : "Node-Webkit", value : process.versions['node-webkit'] }
+              { title : "Node", value : process.versions['node'] }
+              { title : "ArgularJS", value : "v1.2.19" }
+              { title : "Angular-UI-Bootstrap", value : "v0.11.2" }
+              { title : "CryptoJS", value : "v3.1.2" }
+              { title : "Bootstrap CSS", value : "v3.2.0" }
+            ]
+        }
+
+      $scope.openHelp = ()->
+        $modal.open {
+          templateUrl: jTester.global.templateUrls.help
+          backdrop : 'center'
           controller: ($scope)->
 
         }
@@ -242,7 +259,6 @@ appjTester.controller 'GlobalItemCtrl' ,
 
       $scope.cancel = ()->
         $modalInstance.close 'dismiss'
-
 
 ########################## class OpenFileCtrl ##############################
 

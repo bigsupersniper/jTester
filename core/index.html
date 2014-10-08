@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/jsonview.css" />
     <script src="lib/angular.min.js"></script>
     <script src="lib/angular-file-upload.min.js"></script>
-    <script src="lib/ui-bootstrap-tpls-0.11.0.min.js"></script>
+    <script src="lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
     <script src="lib/jsonview.js"></script>
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
@@ -66,6 +66,7 @@
                     <li ng-repeat="menu in menus"><a ng-click="menu.click()"><strong>{{ menu.title }}</strong></a></li>
                 </ul>
                 <ul class="nav navbar-right navbar-nav" style="margin-right:30px;">
+                    <li ng-click="openHelp()"><span class="badge" style="margin-top: 15px; margin-right:10px;cursor: pointer;">doc</span></li>
                     <li ng-click="openAbout()"><span class="badge" style="margin-top: 15px;cursor: pointer;">?</span></li>
                 </ul>
             </nav>
@@ -98,7 +99,7 @@
             </div>
 
             <nav class="navbar navbar-inverse navbar-fixed-bottom" >
-                <p class="navbar-text" style="float :none; text-align: center">Design by <em>LINFENG</em> © 2013 - 2014</p>
+                <p class="navbar-text" style="float :none; text-align: center">v0.1.0 Design by <em>LINFENG</em> © 2013 - 2014</p>
             </nav>
 
         </div>
