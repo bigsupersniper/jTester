@@ -46,6 +46,9 @@
       if (!jTester.config.defaultPath) {
         jTester.config.defaultPath = "D:\\";
       }
+      if (!jTester.config.defaultTestJs || !fs.existsSync(jTester.config.defaultTestJs)) {
+        jTester.config.defaultTestJs = rootdir + '/js/controller.js';
+      }
     }
     downlist = fs.readFileSync(rootdir + '/download.json', {
       encoding: "utf-8"
@@ -58,7 +61,8 @@
     jTester.config = {
       headers: {},
       host: "",
-      defaultPath: "D:\\"
+      defaultPath: "D:\\",
+      defaultTestJs: rootdir + '/js/controller.js'
     };
     alert(e.message);
   }
@@ -69,6 +73,14 @@
       if (fs.existsSync(path)) {
         return fs.unlinkSync(path);
       }
+    },
+    extname: function(file) {
+      return Path.extname(file);
+    },
+    readFileSync: function(path) {
+      return fs.readFileSync(path, {
+        encoding: "utf-8"
+      });
     },
     fileExistsSync: function(path) {
       return fs.existsSync(path);

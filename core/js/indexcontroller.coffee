@@ -12,7 +12,7 @@ appjTester.controller 'IndexCtrl' ,
 
       $scope.menus = [
         {
-          title :  "请求配置"
+          title :  "基础配置"
           click : ()->
             openOptions()
         }
@@ -84,6 +84,11 @@ appjTester.controller 'IndexCtrl' ,
       $scope.showDevTools = ()->
         jTester.global.showDevTools()
 
+      #read controller.js data
+      testjs = jTester.global.readFileSync jTester.config.defaultTestJs
+      if testjs
+        eval testjs
+
       $scope.tabs = []
       resolve = (obj) ->
         obj ?= {}
@@ -113,7 +118,7 @@ appjTester.controller 'IndexCtrl' ,
           backdrop : 'center'
           controller : ($scope)->
             $scope.versions = [
-              { title : "jTester", value : "v0.1.0" }
+              { title : "jTester", value : "v0.1.1" }
               { title : "Chromium", value : process.versions['chromium'] }
               { title : "Node-Webkit", value : process.versions['node-webkit'] }
               { title : "Node", value : process.versions['node'] }
@@ -136,6 +141,10 @@ appjTester.controller 'IndexCtrl' ,
         $modal.open {
           templateUrl: jTester.global.templateUrls.config
           backdrop : 'static'
+          resolve : [
+            $window : ()->
+              return $window
+          ]
           controller: 'ConfigCtrl'
         }
 
@@ -168,11 +177,12 @@ appjTester.controller 'IndexCtrl' ,
 
 appjTester.controller 'ConfigCtrl' ,
   class ConfigCtrl
-    constructor : ($scope , $modalInstance) ->
+    constructor : ($scope , $modalInstance , $window) ->
       jTester = window.jTester
       headers = jTester.config.headers
       $scope.headers = []
       $scope.config = {
+        defaultTestJs : jTester.config.defaultTestJs
         host : jTester.config.host
         defaultPath : jTester.config.defaultPath
       }
@@ -215,6 +225,23 @@ appjTester.controller 'ConfigCtrl' ,
           alert '请先设置服务器地址'
         else
           $modalInstance.close 'dismiss'
+
+      $scope.change = (file)->
+        ext = jTester.global.extname file
+        if ext == ".js"
+          js = jTester.global.readFileSync file
+          #清空上一次测试集合
+          window.Controllers = undefined
+          eval js
+          #验证文件是否包含测试代码
+          if window.Controllers
+            jTester.config.defaultTestJs = file
+            jTester.global.saveConfig()
+            $window.location.reload()
+          else
+            jTester.alert.error '该脚本文件不包含 window.Controllers 对象'
+        else
+          jTester.alert.error '不是 javascript 文件'
 
 ########################## class GlobalItemCtrl ##############################
 

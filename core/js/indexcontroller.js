@@ -4,14 +4,14 @@
 
   appjTester.controller('IndexCtrl', IndexCtrl = (function() {
     function IndexCtrl($scope, $http, $modal, $sce, $timeout, $window) {
-      var openDownloads, openItems, openOptions, resolve;
+      var openDownloads, openItems, openOptions, resolve, testjs;
       $scope.loading = true;
       $timeout(function() {
         return $scope.loading = false;
       }, 1500);
       $scope.menus = [
         {
-          title: "请求配置",
+          title: "基础配置",
           click: function() {
             return openOptions();
           }
@@ -92,6 +92,10 @@
       $scope.showDevTools = function() {
         return jTester.global.showDevTools();
       };
+      testjs = jTester.global.readFileSync(jTester.config.defaultTestJs);
+      if (testjs) {
+        eval(testjs);
+      }
       $scope.tabs = [];
       resolve = function(obj) {
         var ak, av, ck, cv, tab, _results;
@@ -137,7 +141,7 @@
             return $scope.versions = [
               {
                 title: "jTester",
-                value: "v0.1.0"
+                value: "v0.1.1"
               }, {
                 title: "Chromium",
                 value: process.versions['chromium']
@@ -175,6 +179,13 @@
         return $modal.open({
           templateUrl: jTester.global.templateUrls.config,
           backdrop: 'static',
+          resolve: [
+            {
+              $window: function() {
+                return $window;
+              }
+            }
+          ],
           controller: 'ConfigCtrl'
         });
       };
@@ -209,12 +220,13 @@
   })());
 
   appjTester.controller('ConfigCtrl', ConfigCtrl = (function() {
-    function ConfigCtrl($scope, $modalInstance) {
+    function ConfigCtrl($scope, $modalInstance, $window) {
       var headers, jTester, objToArray;
       jTester = window.jTester;
       headers = jTester.config.headers;
       $scope.headers = [];
       $scope.config = {
+        defaultTestJs: jTester.config.defaultTestJs,
         host: jTester.config.host,
         defaultPath: jTester.config.defaultPath
       };
@@ -261,6 +273,24 @@
           return alert('请先设置服务器地址');
         } else {
           return $modalInstance.close('dismiss');
+        }
+      };
+      $scope.change = function(file) {
+        var ext, js;
+        ext = jTester.global.extname(file);
+        if (ext === ".js") {
+          js = jTester.global.readFileSync(file);
+          window.Controllers = void 0;
+          eval(js);
+          if (window.Controllers) {
+            jTester.config.defaultTestJs = file;
+            jTester.global.saveConfig();
+            return $window.location.reload();
+          } else {
+            return jTester.alert.error('该脚本文件不包含 window.Controllers 对象');
+          }
+        } else {
+          return jTester.alert.error('不是 javascript 文件');
         }
       };
     }

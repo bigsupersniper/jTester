@@ -26,6 +26,9 @@ try
       jTester.config.headers = {}
     if !jTester.config.defaultPath
       jTester.config.defaultPath = "D:\\"
+    #如果没有配置或配置的文件不存在则设为默认值
+    if !jTester.config.defaultTestJs || !fs.existsSync jTester.config.defaultTestJs
+      jTester.config.defaultTestJs =  rootdir + '/js/controller.js'
 
   downlist = fs.readFileSync rootdir + '/download.json' , { encoding : "utf-8" }
   if downlist
@@ -35,6 +38,7 @@ catch e
     headers : {}
     host : ""
     defaultPath : "D:\\"
+    defaultTestJs :  rootdir + '/js/controller.js'
   alert e.message
 
 window.jTester.global =
@@ -42,6 +46,10 @@ window.jTester.global =
   rmfile : (path)->
     if fs.existsSync path
       fs.unlinkSync path
+  extname : (file)->
+    return Path.extname file
+  readFileSync : (path)->
+    return fs.readFileSync path , { encoding : "utf-8" }
   fileExistsSync : (path)->
     return fs.existsSync path
   saveConfig : ()->
