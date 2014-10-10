@@ -14,11 +14,11 @@
     <div class="modal-body">
         <div class="input-group">
             <span class="input-group-addon">服务器地址</span>
-            <input type="url" class="form-control" ng-model="config.host" placeholder="IP Address">
+            <input type="url" class="form-control" ng-model="config.address" placeholder="IP Address">
         </div>
         <div class="input-group" style="margin-top: 10px;">
             <span class="input-group-addon">测试JS路径</span>
-            <input type="text" class="form-control" style="width: 580px;" disabled ng-value="config.defaultTestJs">
+            <input type="text" class="form-control" style="width: 580px;" disabled ng-value="config.testfile">
             <div style="float: right;">
                 <button class="btn btn-warning fileinput-save">
                     <i class="glyphicon glyphicon-folder-open"></i>
@@ -28,11 +28,11 @@
         </div>
         <div class="input-group" style="margin-top: 10px;">
             <span class="input-group-addon">下载内容保存位置</span>
-            <input type="text" class="form-control" style="width: 540px;" disabled ng-value="config.downdir || config.defaultPath">
+            <input type="text" class="form-control" style="width: 540px;" disabled ng-value="config.savefilepath">
             <div style="float: right;">
                 <button class="btn btn-warning fileinput-save">
                     <i class="glyphicon glyphicon-folder-open"></i>
-                    <input type="file" ng-model="config.downdir" nwdirectory>
+                    <input type="file" nwdirectory ng-file-select="changedir($files[0].path)">
                 </button>
             </div>
         </div>
@@ -72,7 +72,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-disabled="!config.host || (!config.downdir && !config.defaultPath)" ng-click="save()">保存</button>
+        <button class="btn btn-primary" ng-disabled="!config.address || !config.savefilepath" ng-click="save()">保存</button>
         <button class="btn btn-warning" ng-click="cancel()">取消</button>
     </div>
 </div>

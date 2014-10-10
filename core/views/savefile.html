@@ -24,18 +24,18 @@
             </div>
             <div class="input-group" style="margin-top: 10px;">
                 <span class="input-group-addon">保存到</span>
-                <input type="text" class="form-control" style="width: 620px;" disabled ng-value="params.downdir || params.defaultPath">
+                <input type="text" class="form-control" style="width: 620px;" disabled ng-value="params.savefilepath">
                 <div style="float: right;">
                     <button class="btn btn-warning fileinput-save">
                         <i class="glyphicon glyphicon-folder-open"></i>
-                        <input type="file" ng-model="params.downdir" nwdirectory>
+                        <input type="file"  nwdirectory  ng-file-select="change($files[0].path)>
                     </button>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="save()" ng-disabled="!params.filename || (!params.downdir && !params.defaultPath)">保存</button>
+        <button class="btn btn-primary" ng-click="save()" ng-disabled="!params.filename || !params.savefilepath">保存</button>
         <button class="btn btn-warning" ng-click="cancel()">取消</button>
     </div>
 </div>
