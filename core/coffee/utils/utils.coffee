@@ -4,27 +4,28 @@ __require = jTester.require
 __uuid = __require.uuid
 __fs = __require.fs
 __path = __require.path
+__cryptojs = __require.cryptojs
 
 #aes
 aesutils =
   encrypt : (key , data, mode)->
-    key = CryptoJS.enc.Utf8.parse key
-    data = CryptoJS.enc.Utf8.parse data
-    mode = mode || CryptoJS.mode.ECB
-    encrypted = CryptoJS.AES.encrypt(data, key , {
+    key = __cryptojs.enc.Utf8.parse key
+    data = __cryptojs.enc.Utf8.parse data
+    mode = mode || __cryptojs.mode.ECB
+    encrypted = __cryptojs.AES.encrypt(data, key , {
       mode: mode
     })
 
-    return encrypted.ciphertext.toString CryptoJS.enc.Base64
+    return encrypted.ciphertext.toString __cryptojs.enc.Base64
 
   decrypt : (key , data , mode)->
-    key = CryptoJS.enc.Utf8.parse key
-    mode = mode || CryptoJS.mode.ECB
-    decrypted = CryptoJS.AES.decrypt(data, key , {
+    key = __cryptojs.enc.Utf8.parse key
+    mode = mode || __cryptojs.mode.ECB
+    decrypted = __cryptojs.AES.decrypt(data, key , {
       mode: mode
     })
 
-    return decrypted.toString(CryptoJS.enc.Utf8)
+    return decrypted.toString(__cryptojs.enc.Utf8)
 
 #stringutils
 stringutils =
@@ -36,7 +37,7 @@ stringutils =
       len--
     return temp
   md5 : (str)->
-    return CryptoJS.MD5(str + '').toString(CryptoJS.enc.Hex)
+    return __cryptojs.MD5(str + '').toString(__cryptojs.enc.Hex)
   guid : ()->
     return __uuid.v4().replace(/-/g , "")
 

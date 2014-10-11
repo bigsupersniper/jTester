@@ -1,4 +1,7 @@
 
+#所有window.Controllers里面的测试方法只能引用全局变量
+#例如：__http = jTester.http
+#若以变量__http引用则会出错，必须引用 jTester.http
 
 #test metadata
 window.Controllers =

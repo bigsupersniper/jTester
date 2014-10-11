@@ -16,6 +16,8 @@ views =
   savefile : __apppath + "/views/savefile.html"
   downloadlist : __apppath + "/views/downloadlist.html"
 
+#config angular module
+window.angularapp = window.angular.module 'jTester', ['ui.bootstrap' , 'angularFileUpload']
 #config angularjs items
 window.angularapp.run ($templateCache)->
   $templateCache.put views.about , __fs.readFileSync views.about , { encoding : "utf-8" }
@@ -35,9 +37,10 @@ config =
     testfile : ''
     headers : {}
   globalitems : {}
-  save : ()->
+  save : (cfg)->
     try
-      jsonstring = JSON.stringify window.jTester.config
+      cfg = cfg || window.jTester.config
+      jsonstring = JSON.stringify cfg
       __fs.writeFileSync __apppath + '/config.json' , jsonstring , { encoding : "utf-8" }
     catch e
       window.alert e.message
@@ -51,12 +54,21 @@ try
     config = _config
     if !config.baseitems
       config.baseitems = {}
+  if !__fs.existsSync config.baseitems.savefilepath
+    if !__fs.existsSync "D:\\"
+      config.baseitems.savefilepath = "C:\\"
+    else
+      config.baseitems.savefilepath = "D:\\"
+    #save config
+    config.save(config)
   if !config.baseitems.testfile || !__fs.existsSync config.baseitems.testfile
     config.baseitems.testfile =  './coffee/test/default.coffee'
     if !config.baseitems.headers
       config.baseitems.headers = {}
     if !config.globalitems
       config.globalitems = {}
+    #save config
+    config.save(config)
 catch e
   window.alert e.message
 
@@ -74,7 +86,8 @@ download =
 try
   jsonstring = __fs.readFileSync __apppath + '/download.json' , { encoding : "utf-8" }
   if jsonstring
-    download.history = JSON.parse jsonstring
+    obj = JSON.parse jsonstring
+    download.history = obj.history
 catch e
   window.alert e.message
 

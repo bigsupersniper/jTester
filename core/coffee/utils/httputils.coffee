@@ -1,15 +1,16 @@
+
 #import jTester namespace
 jTester = window.jTester
 __require = jTester.require
 __fs = __require.fs
+__request = __require.request
 __url = __require.url
 __path = __require.path
 __querystring = __require.querystring
 __formdata = __require.formdata
 __config = jTester.config
 __baseitems = __config.baseitems
-__download = __config.download
-__alert = jTester.alert
+__download = jTester.download
 
 #class http
 class http
@@ -38,12 +39,12 @@ class http
         dataType = headers("content-type") || ""
         if dataType.indexOf "application/json" > -1
           data = @datahandle(data)
-          @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{new JSONFormatter().jsonToHTML(data)}"
+          @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{new window.JSONFormatter().jsonToHTML(data)}"
         else
           @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{data}}"
       .error (data , status , headers, config) =>
         @action.submit = false
-        __alert.error "#{url} , 请求失败"
+        jTester.alert.error "#{url} , 请求失败"
 
     @getFileName = (cd)->
       if cd
@@ -98,7 +99,7 @@ class http
       headers : __baseitems.headers
       form : @params.data
 
-    req = request options
+    req = __request options
     req.on 'response' , (res)=>
       filename = @getFileName res.headers['content-disposition']
       ext = __path.extname filename
@@ -110,24 +111,24 @@ class http
           file.write chunk
         res.on 'end' , ()=>
           file.end()
-          __alert.success "#{file.path} 已下载完成"
+          jTester.alert.success "#{file.path} 已下载完成"
           #添加到下载内容历史记录列表中
           __download.history.push {
             filename : __path.basename file.path
             link : options.uri + __querystring.stringify @params.data
             path : file.path
           }
-          __config.download.save()
+          __download.save()
           @$context.action.submit = false
       else
-        __alert.error "下载出错,HTTP #{res.statusCode}"
+        jTester.alert.error "下载出错,HTTP #{res.statusCode}"
         file.end()
         __fs.unlinkSync file.path
         @$context.action.submit = false
 
       res.on 'error' ,(e)=>
         @$context.action.submit = false
-        __alert.error e.message
+        jTester.alert.error e.message
 
   upload : ()->
     @action.submit = true
@@ -150,7 +151,7 @@ class http
     form.submit url , __baseitems.headers , (err , res)=>
       if err
         @action.submit = false
-        __alert.error err.message
+        jTester.alert.error err.message
       else
         dataType = res.headers["content-type"] || ''
         res.on 'data' , (chunk)=>
@@ -158,7 +159,8 @@ class http
           data = chunk + ''
           if dataType.indexOf "application/json" > -1
             data = JSON.parse data
-            @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{new JSONFormatter().jsonToHTML(data)}"
+            data = @datahandle(data)
+            @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{new window.JSONFormatter().jsonToHTML(data)}"
           else
             @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{data}"
 

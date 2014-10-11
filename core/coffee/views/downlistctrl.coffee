@@ -2,7 +2,7 @@
 jTester = window.jTester
 __require = jTester.require
 __nw = __require.nw
-__fs = jTester.require.fs
+__fs = __require.fs
 __download = jTester.download
 __fileutils = jTester.fileutils
 
@@ -14,7 +14,7 @@ angularapp.controller 'DownlistCtrl' ,
       $scope.items = __download.history
 
       $scope.showItemInFolder = (path)->
-        if __fs.fileExistsSync path
+        if __fs.existsSync path
           __nw.Shell.showItemInFolder path
         else
           jTester.alert.error '文件已删除'

@@ -18,11 +18,11 @@
         </div>
         <div class="input-group" style="margin-top: 10px;">
             <span class="input-group-addon">测试JS路径</span>
-            <input type="text" class="form-control" style="width: 580px;" disabled ng-value="config.testfile">
+            <input type="text" class="form-control" style="width: 580px;" disabled ng-value="config.testfile" >
             <div style="float: right;">
                 <button class="btn btn-warning fileinput-save">
                     <i class="glyphicon glyphicon-folder-open"></i>
-                    <input type="file" accept="application/javascript" ng-file-select="change($files[0].path)" >
+                    <input type="file" accept=".js,.coffee" nwworkingdir="{{defaultdir}}" ng-file-select="change($files[0].path)" >
                 </button>
             </div>
         </div>

@@ -3,6 +3,7 @@ jTester = window.jTester
 __require = jTester.require
 __fs = __require.fs
 __nw = __require.nw
+__path = __require.path
 __config = jTester.config
 __baseitems = __config.baseitems
 __fileutils = jTester.fileutils
@@ -65,6 +66,7 @@ angularapp.controller 'ConfigCtrl' ,
         $scope.config.savefilepath = dir
         __baseitems.savefilepath = dir
 
+      $scope.defaultdir = __path.dirname(process.execPath) + '\\core\\coffee\\test'
       $scope.change = (file)->
         ext = __fileutils.extname file
         if ext == ".js" || ext == ".coffee"
