@@ -99,14 +99,17 @@ angularapp.controller 'IndexCtrl' ,
           backdrop : 'center'
           controller : ($scope)->
             $scope.versions = [
-              { title : "jTester", value : "v0.2.1" }
+              { title : "jTester", value : "v0.2.2.20141012" }
               { title : "Chromium", value : process.versions['chromium'] }
               { title : "Node-Webkit", value : process.versions['node-webkit'] }
               { title : "Node", value : process.versions['node'] }
               { title : "ArgularJS", value : "v1.2.26" }
-              { title : "Angular-UI-Bootstrap", value : "v0.11.2" }
-              { title : "CryptoJS", value : "v3.1.2" }
-              { title : "Bootstrap CSS", value : "v3.2.0" }
+              { title : "Angular-ui-Bootstrap", value : "v0.11.2" }
+              { title : "bootstrap css", value : "v3.2.0" }
+              { title : "cryptojs", value : "v3.1.2" }
+              { title : "coffee-script", value : "v1.8.0" }
+              { title : "node-uuid", value : "v1.4.1" }
+              { title : "request", value : "v2.33.0" }
             ]
         }
 

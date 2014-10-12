@@ -8,14 +8,17 @@
     .doc-text{
         margin-left: 20px;
     }
+    dl {
+        margin-bottom: 10px;
+    }
 </style>
 
 <div style="margin: 10px;">
     <div class="modal-header" style="padding: 5px;">
-        <h4>关于</h4>
+        <h3 style="text-align: center;">jTester</h3>
     </div>
     <div class="modal-body">
-        <div style="margin-left: 80px">
+        <div style="margin-left: 120px;height: 360px;overflow-y: auto">
             <dl class="dl-horizontal" ng-repeat="ver in versions">
                 <dt>{{ver.title}}</dt>
                 <dd style="color: blue">{{ ver.value }}</dd>
