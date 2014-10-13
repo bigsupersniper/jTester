@@ -36,7 +36,8 @@ angularapp.controller 'IndexCtrl' ,
         {
           title :  "重启"
           click : ()->
-            #$window.location.reload()
+            #Clear the HTTP cache in memory and the one on disk
+            jTester.require.nw.App.clearCache()
             jTester.restart()
         }
       ]
