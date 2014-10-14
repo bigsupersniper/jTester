@@ -7,6 +7,7 @@ __fs = jTester.require.fs
 
 #all views path
 views =
+  index : __apppath + "/views/index.html"
   help : __apppath + "/views/help.html"
   about : __apppath + "/views/about.html"
   config : __apppath + "/views/config.html"
@@ -17,17 +18,21 @@ views =
   downloadlist : __apppath + "/views/downloadlist.html"
 
 #config angular module
-window.angularapp = window.angular.module 'jTester', ['ui.bootstrap' , 'angularFileUpload']
-#config angularjs items
-window.angularapp.run ($templateCache)->
-  $templateCache.put views.about , __fs.readFileSync views.about , { encoding : "utf-8" }
-  $templateCache.put views.help , __fs.readFileSync views.help , { encoding : "utf-8" }
-  $templateCache.put views.config , __fs.readFileSync views.config , { encoding : "utf-8" }
-  $templateCache.put views.globalitem , __fs.readFileSync views.globalitem , { encoding : "utf-8" }
-  $templateCache.put views.alert , __fs.readFileSync views.alert , { encoding : "utf-8" }
-  $templateCache.put views.uploadfile , __fs.readFileSync views.uploadfile , { encoding : "utf-8" }
-  $templateCache.put views.savefile , __fs.readFileSync views.savefile , { encoding : "utf-8" }
-  $templateCache.put views.downloadlist , __fs.readFileSync views.downloadlist , { encoding : "utf-8" }
+window.angularapp = window.angular.module 'jTester', ['ui.bootstrap' , 'angularFileUpload' , 'ngRoute']
+window.angularapp.config(($routeProvider , $locationProvider) ->
+  $routeProvider.when('/index', {templateUrl: views.index, controller: 'IndexPartCtrl'})
+  $routeProvider.when('/help', {templateUrl: views.index, controller: ($scope, $modal) ->
+    $modal.open {
+      templateUrl: views.help
+      backdrop: 'center'
+      controller: ($scope)->
+    }
+  })
+  $routeProvider.when('/socket', {templateUrl: views.socket, controller: ($scope)-> })
+  $routeProvider.otherwise({redirectTo: '/index'})
+  #configure html5 to get links working on node-webkit
+  $locationProvider.html5Mode(true)
+)
 
 #config
 config =

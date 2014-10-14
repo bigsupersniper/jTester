@@ -119,7 +119,6 @@ angularapp.controller 'IndexCtrl' ,
           templateUrl: __views.help
           backdrop : 'center'
           controller: ($scope)->
-
         }
 
       openConfig = ()->
@@ -151,6 +150,13 @@ angularapp.controller 'IndexCtrl' ,
           if result == 'success'
             jTester.alert.success '保存成功'
 
+      #run when page loaded
+      if !__baseitems.address
+        openConfig()
+
+angularapp.controller 'IndexPartCtrl' ,
+  class IndexPartCtrl
+    constructor : ($scope ) ->
       #resolve test method
       $scope.tabs = []
       resolve = (obj) ->
@@ -178,8 +184,3 @@ angularapp.controller 'IndexCtrl' ,
       #resolve test method
       window.require __baseitems.testfile
       resolve window.Controllers
-
-      #run when page loaded
-      if !__baseitems.address
-        openConfig()
-

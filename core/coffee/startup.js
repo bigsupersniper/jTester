@@ -8,7 +8,8 @@
 
     //handle uncaughtException
     process.on('uncaughtException', function(err) {
-        return alert(err.message);
+        var message = decodeURIComponent(err.message)
+        return alert(message);
     });
 
     jTester.restart = function() {
@@ -28,6 +29,7 @@
     window.jTester.require = {
         nw: require('nw.gui'),
         fs: require('fs'),
+        net : require('net'),
         path: require('path'),
         querystring: require('querystring'),
         url: require('url'),
