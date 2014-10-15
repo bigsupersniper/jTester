@@ -1,6 +1,11 @@
 
+<ol class="breadcrumb">
+    <li><a href="#">jTester</a></li>
+    <li><a href="#">File</a></li>
+    <li class="active">HTTP</li>
+</ol>
 
-<div style="margin: 8px ;margin-top: 60px;">
+<div style="margin: 8px ;margin-top: 20px;">
     <tabset>
         <tab ng-repeat="tab in tabs" heading="{{tab.controller}}" active="tab.active" >
             <div class="tab-pane fade in" style="margin-top: 10px;" >
@@ -12,11 +17,11 @@
                         <accordion close-others="true">
                             <accordion-group ng-repeat="action in tab.actions" is-open="isopen">
                                 <accordion-heading>
-                                    <strong>{{action.action}}</strong>
+                                    <strong>{{action.name}}</strong>
                                     <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
                                 </accordion-heading>
-                                <textarea style="background-color:#ddd;" class="form-control" rows="{{ action.rows }}"  ng-model="action.script"></textarea>
-                                <button class="btn btn-primary" style="margin-top: 15px;" ng-click="action.exec()" ng-disabled="action.submit" >{{ !action.submit ? 'Submit' : 'Loading' }}</button>
+                                <textarea style="background-color:#ddd;" class="form-control" rows="{{ action.rowcount }}"  ng-model="action.script"></textarea>
+                                <button class="btn btn-primary" style="margin-top: 15px;" ng-click="action.execute()" ng-disabled="action.submit" >{{ !action.submit ? 'Submit' : 'Loading' }}</button>
                                 <div class="well" style="margin-top: 15px" ng-bind-html="action.result"></div>
                             </accordion-group>
                         </accordion>

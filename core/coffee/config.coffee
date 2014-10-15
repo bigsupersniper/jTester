@@ -7,31 +7,27 @@ __fs = jTester.require.fs
 
 #all views path
 views =
-  index : __apppath + "/views/index.html"
-  help : __apppath + "/views/help.html"
-  about : __apppath + "/views/about.html"
+  http : __apppath + "/views/http.html"
+  socket : __apppath + "/views/socket.html"
   config : __apppath + "/views/config.html"
   globalitem : __apppath + "/views/globalitem.html"
   alert : __apppath + "/views/alert.html"
   uploadfile : __apppath + "/views/uploadfile.html"
   savefile : __apppath + "/views/savefile.html"
   downloadlist : __apppath + "/views/downloadlist.html"
+  help : __apppath + "/views/help.html"
+  about : __apppath + "/views/about.html"
 
 #config angular module
 window.angularapp = window.angular.module 'jTester', ['ui.bootstrap' , 'angularFileUpload' , 'ngRoute']
-window.angularapp.config(($routeProvider , $locationProvider) ->
-  $routeProvider.when('/index', {templateUrl: views.index, controller: 'IndexPartCtrl'})
-  $routeProvider.when('/help', {templateUrl: views.index, controller: ($scope, $modal) ->
-    $modal.open {
-      templateUrl: views.help
-      backdrop: 'center'
-      controller: ($scope)->
-    }
-  })
+window.angularapp.config(($routeProvider , $locationProvider , $compileProvider) ->
+  $routeProvider.when('/http', {templateUrl: views.http, controller: 'HttpCtrl'})
   $routeProvider.when('/socket', {templateUrl: views.socket, controller: ($scope)-> })
-  $routeProvider.otherwise({redirectTo: '/index'})
+  $routeProvider.otherwise({redirectTo: '/http'})
   #configure html5 to get links working on node-webkit
   $locationProvider.html5Mode(true)
+  #href unsafe solution
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(app):/);
 )
 
 #config
@@ -100,6 +96,7 @@ catch e
 window.jTester.views = views
 window.jTester.config = config
 window.jTester.download = download
+window.jTester.cache = {}
 #file or alert can't ref
 window.jTester.file = {}
 window.jTester.alert = {}

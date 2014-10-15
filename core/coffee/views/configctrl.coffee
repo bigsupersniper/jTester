@@ -12,7 +12,7 @@ __fileutils = jTester.fileutils
 angularapp = window.angularapp
 angularapp.controller 'ConfigCtrl' ,
   class ConfigCtrl
-    constructor : ($scope , $modalInstance , $window) ->
+    constructor : ($scope , $modalInstance ) ->
       headers = __baseitems.headers
       $scope.headers = []
 
