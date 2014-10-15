@@ -30,6 +30,8 @@
         nw: require('nw.gui'),
         fs: require('fs'),
         net : require('net'),
+        util : require('util'),
+        events : require('events'),
         path: require('path'),
         querystring: require('querystring'),
         url: require('url'),
@@ -46,6 +48,7 @@
     require ('./coffee/config.coffee')
     //utils
     require ('./coffee/utils/utils.coffee')
+    require ('./coffee/utils/socketutils.coffee')
     //views
     require ('./coffee/views/indexctrl.coffee')
     require ('./coffee/views/httpctrl.coffee')
