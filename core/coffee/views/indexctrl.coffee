@@ -4,7 +4,6 @@ __require = jTester.require
 __nw = __require.nw
 __views = jTester.views
 __config = jTester.config
-__baseitems = __config.baseitems
 
 #class IndexCtrl
 angularapp = window.angularapp
@@ -77,18 +76,6 @@ angularapp.controller 'IndexCtrl' ,
           jTester.restart()
         quit : ()->
           __require.nw.App.quit()
-        baseconfig :()->
-          $modal.open {
-            templateUrl: __views.config
-            backdrop : 'static'
-            controller: 'ConfigCtrl'
-          }
-        globalconfig : ()->
-          $modal.open {
-            templateUrl: __views.globalitem
-            backdrop : 'static'
-            controller: 'GlobalItemCtrl'
-          }
         download : ()->
           $modalInstance = $modal.open {
             templateUrl: __views.downloadlist
@@ -99,12 +86,6 @@ angularapp.controller 'IndexCtrl' ,
           $modalInstance.result.then (result)->
             if result == 'success'
               jTester.alert.success '保存成功'
-        help : ()->
-          $modal.open {
-            templateUrl: __views.help
-            backdrop : 'center'
-            controller: ($scope)->
-          }
         about : ()->
           $modal.open {
             templateUrl: __views.about
@@ -124,7 +105,3 @@ angularapp.controller 'IndexCtrl' ,
                 { title : "request", value : "v2.33.0" }
               ]
           }
-
-      #run when page loaded
-      if !__baseitems.address
-        menus.baseconfig()

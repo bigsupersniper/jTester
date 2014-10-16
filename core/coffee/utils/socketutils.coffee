@@ -32,7 +32,6 @@ class clientsocket
       if @connected
         @client.end()
         @connected = false
-        #@emit 'end'
 
 #inherits EventEmitter class
 __util.inherits clientsocket , __events

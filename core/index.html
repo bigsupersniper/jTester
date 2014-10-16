@@ -25,17 +25,6 @@
             direction: ltr;
             cursor: pointer;
         }
-        .fileinput-save input {
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin: 0;
-            opacity: 0;
-            font-size: 25px;
-            width: 40px;
-            direction: ltr;
-            cursor: pointer;
-        }
         a{
             cursor: pointer;
         }
@@ -59,30 +48,21 @@
             <nav class="navbar-inverse navbar-fixed-top" role="banner">
                 <a class="navbar-brand"><strong>jTester</strong></a>
                 <ul class="nav navbar-nav">
-                    <li class="dropdown active ng-isolate-scope">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="icon-book icon-white"></i> <strong>文件</strong>
                             <!--<b class="caret"></b>-->
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/http">HTTP</a></li>
-                            <li><a href="/socket">SOCKET</a></li>
+                            <li><a href="#" ng-click="menus.download()">下载内容</a></li>
+                            <li><a href="#" ng-click="menus.showDevTools()">调试工具</a></li>
                             <li><a href="#" ng-click="menus.restart()">重启</a></li>
                             <li><a href="#" ng-click="menus.quit()">退出</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown active ng-isolate-scope">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-book icon-white"></i> <strong>选项</strong>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" ng-click="menus.baseconfig()">基础配置</a></li>
-                            <li><a href="#" ng-click="menus.globalconfig()">全局项配置</a></li>
-                            <li><a href="#" ng-click="menus.download()">下载内容</a></li>
-                            <li><a href="#" ng-click="menus.showDevTools()">调试工具</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown active ng-isolate-scope">
+                    <li><a href="/http" >HTTP</a></li>
+                    <li><a href="/socket">SOCKET</a></li>
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="icon-book icon-white"></i> <strong>帮助</strong>
                         </a>

@@ -9,8 +9,6 @@ __fs = jTester.require.fs
 views =
   http : __apppath + "/views/http.html"
   socket : __apppath + "/views/socket.html"
-  config : __apppath + "/views/config.html"
-  globalitem : __apppath + "/views/globalitem.html"
   alert : __apppath + "/views/alert.html"
   uploadfile : __apppath + "/views/uploadfile.html"
   savefile : __apppath + "/views/savefile.html"
@@ -33,11 +31,13 @@ window.angularapp.config(($routeProvider , $locationProvider , $compileProvider)
 
 #config
 config =
-  baseitems :
+  httpconfig :
     address : ''
     savefilepath : ''
     testfile : ''
-    headers : {}
+    items : {}
+  socketconfig :
+    items : {}
   globalitems : {}
   save : (cfg)->
     try
@@ -54,23 +54,24 @@ try
     _config = JSON.parse jsonstring
     _config.save = config.save
     config = _config
-    if !config.baseitems
-      config.baseitems = {}
-  if !__fs.existsSync config.baseitems.savefilepath
+    if !config.httpconfig
+      config.httpconfig = {}
+  if !__fs.existsSync config.httpconfig.savefilepath
     if !__fs.existsSync "D:\\"
-      config.baseitems.savefilepath = "C:\\"
+      config.httpconfig.savefilepath = "C:\\"
     else
-      config.baseitems.savefilepath = "D:\\"
+      config.httpconfig.savefilepath = "D:\\"
     #save config
     config.save(config)
-  if !config.baseitems.testfile || !__fs.existsSync config.baseitems.testfile
-    config.baseitems.testfile =  './coffee/test/default.coffee'
-    if !config.baseitems.headers
-      config.baseitems.headers = {}
-    if !config.globalitems
-      config.globalitems = {}
+
+  if !config.httpconfig.testfile || !__fs.existsSync config.httpconfig.testfile
+    config.httpconfig.testfile =  './coffee/test/default.coffee'
     #save config
     config.save(config)
+  if !config.socketconfig
+    config.socketconfig = {}
+  if !config.globalitems
+    config.globalitems = {}
 catch e
   window.alert e.message
 
