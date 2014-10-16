@@ -1,0 +1,44 @@
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">键值对配置</h4>
+    </div>
+    <div class="modal-body">
+
+        <form class="form-inline" name="additem" style="margin-top: 10px">
+            <div class="form-group">
+                <input type="text" class="form-control" style="width: 330px"  placeholder="ItemName" ng-model="item.key" required>
+            </div>
+            <div class="form-group">
+                =
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" style="width: 390px"  placeholder="ItemValue" ng-model="item.value" required>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" style="margin-left: 15px" ng-click="set()" ng-disabled="additem.$invalid">设置</button>
+                <button class="btn btn-primary" style="margin-left: 15px" ng-click="saveall()">保存全部</button>
+            </div>
+        </form>
+
+        <div style="margin-top: 10px;">
+            <table class="table table-bordered">
+                <tr>
+                    <th style="width: 35%;">键名</th>
+                    <th>键值</th>
+                </tr>
+                <tr ng-repeat="item in items">
+                    <td>{{ item.key }}</td>
+                    <td>
+                        {{ item.value }}
+                        <span style="float:right;width: 30px">
+                            <button type="button" class="close" style="float: left" data-dismiss="alert" aria-hidden="true" ng-click="reset($index)">&equiv;</button>
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="remove($index)">&times;</button>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>

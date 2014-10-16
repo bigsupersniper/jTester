@@ -1,13 +1,17 @@
 
 <ol class="breadcrumb" style="margin-left: 8px ;margin-right: 8px ;">
     <li><a href="#">jTester</a></li>
-    <li><a href="#">File</a></li>
     <li class="active">HTTP</li>
 </ol>
 
 <div style="margin: 8px ;margin-top: 20px;">
     <tabset>
-        <tab ng-repeat="tab in tabs" heading="{{tab.controller}}" active="tab.active" >
+        <tab heading="开始">
+            <div class="tab-pane fade in" style="margin-top: 10px;" >
+                <div ng-include src="'./core/views/httpconfig.html'"></div>
+            </div>
+        </tab>
+        <tab ng-repeat="tab in tabs" heading="{{tab.controller}}" >
             <div class="tab-pane fade in" style="margin-top: 10px;" >
                 <div class="panel panel-primary">
                     <div class="panel-heading">

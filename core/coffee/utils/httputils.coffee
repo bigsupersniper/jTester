@@ -9,7 +9,7 @@ __path = __require.path
 __querystring = __require.querystring
 __formdata = __require.formdata
 __config = jTester.config
-__baseitems = __config.baseitems
+__httpconfig = __config.httpconfig
 __download = jTester.download
 
 #class http
@@ -19,13 +19,14 @@ class http
     @$http = $context.$http || {}
     @$sce = $context.$sce || {}
     @params = $context.params || {}
+    @headers = @params.headers || {}
     @action = $context.action || {}
     @datahandle = $context.datahandle || (data)-> return data
 
     @execProxy = (method) ->
       @action.submit = true
-      url = __url.resolve __baseitems.address , "/#{@params.controller}/#{@params.action}/"
-      config = {method : method , url : url , headers: __baseitems.headers, data : @params.data }
+      url = __url.resolve __httpconfig.address , "/#{@params.controller}/#{@params.action}/"
+      config = {method : method , url : url , headers: @headers, data : @params.data }
       if method == "POST"
         config.transformRequest = (obj)->
           str = []
@@ -94,9 +95,9 @@ class http
     @$context.$modalInstance.close 'dismiss'
     @$context.action.submit = true
     options =
-      uri : __url.resolve __baseitems.address , "/#{@params.controller}/#{@params.action}/"
+      uri : __url.resolve __httpconfig.address , "/#{@params.controller}/#{@params.action}/"
       method : "GET",
-      headers : __baseitems.headers
+      headers : @headers
       form : @params.data
 
     req = __request options
@@ -135,7 +136,7 @@ class http
     #close modal
     @$context.$modalInstance.close 'dismiss'
 
-    url = __url.resolve __baseitems.address , "/#{@params.controller}/#{@params.action}/"
+    url = __url.resolve __httpconfig.address , "/#{@params.controller}/#{@params.action}/"
     form = new __formdata()
     #form.maxDataSize = @$context.maxDataSize * 1024 * 1024 if @$context.maxDataSize
 
@@ -148,7 +149,7 @@ class http
         form.append 'file' + i , __fs.createReadStream file
 
     #modify form-data source submit(parms , cb) to submit(params , headers , cb)
-    form.submit url , __baseitems.headers , (err , res)=>
+    form.submit url , @headers , (err , res)=>
       if err
         @action.submit = false
         jTester.alert.error err.message

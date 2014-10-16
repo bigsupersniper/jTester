@@ -4,7 +4,7 @@ __cryptojs = jTester.require.cryptojs
 __aes = jTester.aesutils
 __stringutils = jTester.stringutils
 __config = jTester.config
-__globalitems = __config.globalitems
+__socketconfig = __config.socketconfig
 __clientsocket = jTester.clientsocket
 
 #class HttpCtrl
@@ -12,14 +12,49 @@ angularapp = window.angularapp
 angularapp.controller 'SocketCtrl' ,
   class SocketCtrl
     constructor : ($scope , $interval) ->
+############################SocketConfig########################################
+      $scope.items = []
+      $scope.item = {}
+      items = __socketconfig.items || {}
+
+      objToArray = ()->
+        $scope.items = []
+        for k , v of items
+          $scope.items.push ({
+            key : k
+            value : v
+          })
+
+      objToArray()
+
+      $scope.set = ()->
+        items[$scope.item.key]= $scope.item.value
+        objToArray()
+        $scope.item.key = ""
+        $scope.item.value = ""
+
+      $scope.reset = (index)->
+        item = $scope.items[index]
+        $scope.item.key = item.key
+        $scope.item.value = item.value
+
+      $scope.remove = (index)->
+        item = $scope.items[index]
+        delete items[item.key]
+        $scope.items.splice index , 1
+
+      $scope.saveall = ()->
+        __socketconfig.items = items
+        __config.save()
+        jTester.alert.success '保存成功'
 
 ############################ClientSocket########################################
       _client =
         msgs : []
         task : {}
-        token : __globalitems.sockettoken
-        tokenkey : __globalitems.sockettokenkey
-        imei : __globalitems.socketimei
+        token : __socketconfig.items.sockettoken
+        tokenkey : __socketconfig.items.sockettokenkey
+        imei : __socketconfig.items.socketimei
         sa : ()->
           if $scope.client.socket.connected
             sha1 = __cryptojs.SHA1(@imei).toString()
@@ -42,8 +77,8 @@ angularapp.controller 'SocketCtrl' ,
           , 1000
 
       $scope.client =
-        host : '127.0.0.1'
-        port : 2020
+        host : __socketconfig.items.clienthost || '127.0.0.1'
+        port : parseInt __socketconfig.items.clientport || 0
         message : ''
         connected : false
         msgs : []
@@ -82,8 +117,8 @@ angularapp.controller 'SocketCtrl' ,
       _component =
         msgs : []
         task : {}
-        key : __globalitems.componentkey
-        password : __globalitems.componentpassword
+        key : __socketconfig.items.componentkey
+        password : __socketconfig.items.componentpassword
         handshake : ()->
           if $scope.component.socket.connected
             sha1 = __cryptojs.SHA1(@password).toString()
@@ -99,8 +134,8 @@ angularapp.controller 'SocketCtrl' ,
           , 1000
 
       $scope.component =
-        host : '127.0.0.1'
-        port : 2025
+        host : __socketconfig.items.componenthost || '127.0.0.1'
+        port : parseInt __socketconfig.items.componentport || 0
         message : ''
         msgs : []
         connected : false
