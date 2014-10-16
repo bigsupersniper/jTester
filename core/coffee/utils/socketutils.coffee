@@ -15,10 +15,12 @@ class clientsocket
       @client = __net.connect { host : host , port : port} , ()=>
         @client.on 'data', (data)=>
           @emit 'data' , data
+
         @client.on 'error' , (error)=>
           @emit 'error' , error
-        @client.on 'disconnect' , ()=>
-          @emit 'disconnect'
+
+        @client.on 'end' , ()=>
+          @emit 'end'
 
         @connected = true
         @emit 'connect'
@@ -29,7 +31,8 @@ class clientsocket
     @close = ()->
       if @connected
         @client.end()
-        @emit 'disconnect'
+        @connected = false
+        #@emit 'end'
 
 #inherits EventEmitter class
 __util.inherits clientsocket , __events

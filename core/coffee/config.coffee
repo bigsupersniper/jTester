@@ -22,7 +22,8 @@ views =
 window.angularapp = window.angular.module 'jTester', ['ui.bootstrap' , 'angularFileUpload' , 'ngRoute']
 window.angularapp.config(($routeProvider , $locationProvider , $compileProvider) ->
   $routeProvider.when('/http', {templateUrl: views.http, controller: 'HttpCtrl'})
-  $routeProvider.when('/socket', {templateUrl: views.socket, controller: ($scope)-> })
+  $routeProvider.when('/socket', {templateUrl: views.socket, controller: 'SocketCtrl' })
+  $routeProvider.when('/help', {templateUrl: views.help, controller: ($scope)-> })
   $routeProvider.otherwise({redirectTo: '/http'})
   #configure html5 to get links working on node-webkit
   $locationProvider.html5Mode(true)

@@ -52,6 +52,7 @@
     //views
     require ('./coffee/views/indexctrl.coffee')
     require ('./coffee/views/httpctrl.coffee')
+    require ('./coffee/views/socketctrl.coffee')
     require ('./coffee/views/configctrl.coffee')
     require ('./coffee/views/globalitemctrl.coffee')
     require ('./coffee/views/downlistctrl.coffee')

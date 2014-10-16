@@ -2,9 +2,12 @@
     .btn{
         margin-left: 10px;
     }
-    .well{
-        margin-top: 5px;
-        height: 200px;
+    .list-group-item{
+        word-break: break-all
+    }
+    .panel{
+        margin-top: 10px;
+        margin-bottom: 60px;
     }
 </style>
 
@@ -14,47 +17,104 @@
     <li class="active">SOCKET</li>
 </ol>
 <div style="margin: 5px ;margin-top: 20px;">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h4 class="panel-title">设置</h4>
-        </div>
-        <div class="panel-body">
-            <form class="form-inline" role="form">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">服务器地址</div>
-                        <input class="form-control" type="text" placeholder="HOST">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control" style="width: 100px" placeholder="PORT">
-                </div>
-                <button type="button" class="btn btn-primary">连接</button>
-                <button type="button" class="btn btn-warning">断开</button>
-            </form>
 
-            <form class="form-inline" role="form" style="margin-top:20px">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">发送消息</div>
-                        <input class="form-control" type="text" style="width: 700px" placeholder="Message">
-                    </div>
+    <tabset>
+        <tab heading="CLIENT">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">SOCKETCLIENT</h4>
                 </div>
-                <button type="button" class="btn btn-primary">发送</button>
-            </form>
-        </div>
-    </div>
+                <div class="panel-body">
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h4 class="panel-title">输出</h4>
-        </div>
-        <div class="panel-body">
-            <div style="height: 210px;overflow-y: auto">
-                <div class="well"></div>
+                    <form class="form-inline" role="form" name="sethost" >
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">服务器地址</div>
+                                <input class="form-control" ng-model="client.host" type="text" placeholder="HOST" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" ng-model="client.port" style="width: 100px" placeholder="PORT" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" ng-click="client.connect()" ng-disabled="client.connected">连接</button>
+                        <button type="button" class="btn btn-warning" ng-click="client.disconnect()" ng-disabled="!client.connected">断开</button>
+                    </form>
+
+                    <form class="form-inline" role="form" style="margin-top:20px">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">发送消息</div>
+                                <input class="form-control" type="text" style="width: 700px" ng-model="client.message" placeholder="Message">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" ng-click="client.send()" ng-disabled="!client.connected">发送</button>
+                        <button type="button" class="btn btn-primary" ng-click="client.clear()" ng-disabled="client.msgs.length <= 0">清除输出</button>
+                    </form>
+
+                    <accordion>
+                        <accordion-group is-open="true" style="margin-top: 20px">
+                            <accordion-heading>
+                                控制台输出<i class="pull-right glyphicon glyphicon-chevron-down" ></i>
+                            </accordion-heading>
+                            <ul class="list-group">
+                                <!--fix ng-repeat Error “Duplicates in a repeater are not allowed.”-->
+                                <li class="list-group-item" ng-repeat="msg in client.msgs track by $index">{{msg}}</li>
+                            </ul>
+                        </accordion-group>
+                    </accordion>
+                </div>
             </div>
-        </div>
-    </div>
+        </tab>
+        <tab heading="COMPONENT">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">SOCKETCOMPONENT</h4>
+                </div>
+                <div class="panel-body">
+
+                    <form class="form-inline" role="form" name="sethost" >
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">服务器地址</div>
+                                <input class="form-control" ng-model="component.host" type="text" placeholder="HOST" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" ng-model="component.port" style="width: 100px" placeholder="PORT" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" ng-click="component.connect()" ng-disabled="component.connected">连接</button>
+                        <button type="button" class="btn btn-warning" ng-click="component.disconnect()" ng-disabled="!component.connected">断开</button>
+                    </form>
+
+                    <form class="form-inline" role="form" style="margin-top:20px">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">发送消息</div>
+                                <input class="form-control" type="text" style="width: 600px" ng-model="component.message" placeholder="Message">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" ng-click="component.send()" ng-disabled="!component.connected">发送</button>
+                        <button type="button" class="btn btn-primary" ng-click="component.deliver()" ng-disabled="!component.connected">传送</button>
+                        <button type="button" class="btn btn-primary" ng-click="component.clear()" ng-disabled="msgs.length <= 0">清除输出</button>
+                    </form>
+
+                    <accordion>
+                        <accordion-group is-open="true" style="margin-top: 20px">
+                            <accordion-heading>
+                                控制台输出<i class="pull-right glyphicon glyphicon-chevron-down" ></i>
+                            </accordion-heading>
+                            <ul class="list-group">
+                                <!--fix ng-repeat Error “Duplicates in a repeater are not allowed.”-->
+                                <li class="list-group-item" ng-repeat="msg in component.msgs track by $index">{{msg}}</li>
+                            </ul>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+
+
 </div>
 
 
