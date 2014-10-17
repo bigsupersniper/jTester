@@ -92,7 +92,6 @@ angularapp.controller 'IndexCtrl' ,
             backdrop : 'center'
             controller : ($scope)->
               $scope.versions = [
-                { title : "jTester", value : "v0.3.0.20141017" }
                 { title : "Chromium", value : process.versions['chromium'] }
                 { title : "Node-Webkit", value : process.versions['node-webkit'] }
                 { title : "Node", value : process.versions['node'] }
