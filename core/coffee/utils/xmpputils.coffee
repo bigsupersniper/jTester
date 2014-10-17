@@ -16,37 +16,42 @@ class simplexmpp
     @client = {}
     @connected = false
 
-    @connect = (host , port)->
-      @client = new __xmpp.connect {
+    @connect = ()->
+      __xmpp.connect {
         jid : @jid
         password : @password
         host : @host
         port : @port
       }
-      @client.on 'online', (data)=>
+
+      __xmpp.on 'online', (data)=>
         @connected = true
         @emit 'online' , data
 
-      @client.on 'chat' , (from, message)=>
+      __xmpp.on 'chat' , (from, message)=>
         @emit 'chat' , from, message
 
-      @client.on 'stanza' , (stanza)=>
+      __xmpp.on 'stanza' , (stanza)=>
         @emit 'stanza' , stanza
 
-      @client.on 'error' , (error)=>
+      __xmpp.on 'error' , (error)=>
         @connected = false
         @emit 'error' , error
 
+      __xmpp.on 'close' , ()=>
+        @connected = false
+        @emit 'close'
+
     @send = (to , message , group)->
-      @client.send to , message , group
+      #message fix with empty string
+      __xmpp.send to , message + ' ' , group
 
     @close = ()->
       if @connected
-        @client.disconnect()
-        @connected = false
+        __xmpp.disconnect()
 
 #inherits EventEmitter class
 __util.inherits simplexmpp , __events
 
 #output
-window.jTester.clientsocket = simplexmpp
+window.jTester.simplexmpp = simplexmpp

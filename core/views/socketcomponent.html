@@ -9,11 +9,11 @@
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon">服务器地址</div>
-                    <input class="form-control" ng-model="component.host" type="text" placeholder="HOST" required>
+                    <input class="form-control" ng-model="component.host" ng-disabled="component.connected" type="text" placeholder="HOST" required>
                 </div>
             </div>
             <div class="form-group">
-                <input type="number" class="form-control" ng-model="component.port" style="width: 100px" placeholder="PORT" required>
+                <input type="number" class="form-control" ng-model="component.port" ng-disabled="component.connected" style="width: 100px" placeholder="PORT" required>
             </div>
             <button type="button" class="btn btn-primary" ng-click="component.connect()" ng-disabled="component.connected">连接</button>
             <button type="button" class="btn btn-warning" ng-click="component.disconnect()" ng-disabled="!component.connected">断开</button>
@@ -27,8 +27,18 @@
                 </div>
             </div>
             <button type="button" class="btn btn-primary" ng-click="component.send()" ng-disabled="!component.connected">发送</button>
-            <button type="button" class="btn btn-primary" ng-click="component.deliver()" ng-disabled="!component.connected">传送</button>
             <button type="button" class="btn btn-primary" ng-click="component.clear()" ng-disabled="component.msgs.length <= 0">清除输出</button>
+        </form>
+
+        <form class="form-inline" role="form" style="margin-top:20px">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">定时传送</div>
+                    <input class="form-control" type="number" style="width: 100px" ng-model="component.time" ng-disabled="component.timerstarted" placeholder="Time">
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" ng-click="component.starttimer()" ng-disabled="component.timerstarted || !component.connected">开始</button>
+            <button type="button" class="btn btn-primary" ng-click="component.stoptimer()" ng-disabled="!component.timerstarted">停止</button>
         </form>
 
         <accordion>

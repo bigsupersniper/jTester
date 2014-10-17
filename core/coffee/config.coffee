@@ -9,6 +9,7 @@ __fs = jTester.require.fs
 views =
   http : __apppath + "/views/http.html"
   socket : __apppath + "/views/socket.html"
+  xmpp : __apppath + "/views/xmpp.html"
   alert : __apppath + "/views/alert.html"
   uploadfile : __apppath + "/views/uploadfile.html"
   savefile : __apppath + "/views/savefile.html"
@@ -21,6 +22,7 @@ window.angularapp = window.angular.module 'jTester', ['ui.bootstrap' , 'angularF
 window.angularapp.config(($routeProvider , $locationProvider , $compileProvider) ->
   $routeProvider.when('/http', {templateUrl: views.http, controller: 'HttpCtrl'})
   $routeProvider.when('/socket', {templateUrl: views.socket, controller: 'SocketCtrl' })
+  $routeProvider.when('/xmpp', {templateUrl: views.xmpp, controller: 'XmppCtrl' })
   $routeProvider.when('/help', {templateUrl: views.help, controller: ($scope)-> })
   $routeProvider.otherwise({redirectTo: '/http'})
   #configure html5 to get links working on node-webkit

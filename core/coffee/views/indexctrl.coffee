@@ -92,7 +92,7 @@ angularapp.controller 'IndexCtrl' ,
             backdrop : 'center'
             controller : ($scope)->
               $scope.versions = [
-                { title : "jTester", value : "v0.2.2.20141012" }
+                { title : "jTester", value : "v0.3.0.20141017" }
                 { title : "Chromium", value : process.versions['chromium'] }
                 { title : "Node-Webkit", value : process.versions['node-webkit'] }
                 { title : "Node", value : process.versions['node'] }
@@ -103,5 +103,7 @@ angularapp.controller 'IndexCtrl' ,
                 { title : "coffee-script", value : "v1.8.0" }
                 { title : "node-uuid", value : "v1.4.1" }
                 { title : "request", value : "v2.33.0" }
+                { title : "simple-xmpp", value : "v0.1.92" }
+                { title : "dateformat", value : "v1.0.8" }
               ]
           }
