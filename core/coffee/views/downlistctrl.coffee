@@ -3,6 +3,7 @@ jTester = window.jTester
 __require = jTester.require
 __nw = __require.nw
 __fs = __require.fs
+__config = jTester.config
 __download = jTester.download
 __fileutils = jTester.fileutils
 
@@ -10,8 +11,9 @@ __fileutils = jTester.fileutils
 angularapp = window.angularapp
 angularapp.controller 'DownlistCtrl' ,
   class DownlistCtrl
-    constructor : ($scope , $modalInstance)->
+    constructor : ($scope )->
       $scope.items = __download.history
+      $scope.savefilepath = __config.httpconfig.savefilepath
 
       $scope.showItemInFolder = (path)->
         if __fs.existsSync path
@@ -29,9 +31,6 @@ angularapp.controller 'DownlistCtrl' ,
         __fileutils.unlinkSync file[0].path
 
       $scope.clear = ()->
-        __download = []
+        __download.history = []
         $scope.items = []
         __download.save()
-
-      $scope.cancel = ()->
-        $modalInstance.close 'dismiss'

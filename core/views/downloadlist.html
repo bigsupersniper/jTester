@@ -1,39 +1,50 @@
-
-<style type="text/css">
-    .modal-content{
-        margin-top: 100px;
-        width: 800px;
-        margin-left: -100px;
+<style>
+    .panel{
+        margin-top: 10px;
+        margin-bottom: 60px;
     }
-    .modal-body{
-        height: 250px;
-        overflow-y: auto;
+    .pull-right{
+        margin-top: -20px;
+        color: #fff;
     }
 </style>
 
-<div style="margin: 10px;">
-    <div class="modal-header" style="padding: 5px;">
-        <h4>下载内容</h4>
-    </div>
-    <div class="modal-body">
-        <accordion close-others="true">
-            <accordion-group ng-repeat="item in items" is-open="isopen">
-                <accordion-heading>
-                    <strong>{{item.filename}}</strong>
-                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
-                </accordion-heading>
-                <p style="color: #428bca">{{item.link}}</p>
-                <p style="font-size: 12px;">
-                    <a ng-click="showItemInFolder(item.path)">在文件夹中显示</a>
-                    <a style="margin-left: 8px" ng-click="remove($index)">从列表中删除</a>
-                    <a style="margin-left: 8px" ng-click="delete($index)">删除文件</a>
-                </p>
-            </accordion-group>
-        </accordion>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-disabled="items.length <= 0" ng-click="clear()">全部清除</button>
-        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+<div style="margin: 5px ;margin-top: 20px;">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">搜索</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="search" placeholder="Search">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="panel-title">下载内容</h4>
+            <a href="#" ng-disabled="items.length <= 0" ng-click="showItemInFolder(savefilepath)" class="pull-right" style="margin-right: 80px">打开下载内容文件夹</a>
+            <a href="#" ng-disabled="items.length <= 0" ng-click="clear()" class="pull-right">全部清除</a>
+        </div>
+        <div class="modal-body">
+            <accordion close-others="true">
+                <accordion-group ng-repeat="item in items track by $index | filter : { filename : search }" is-open="isopen">
+                    <accordion-heading>
+                        <strong>{{item.filename}}</strong>
+                    </accordion-heading>
+                    <p style="color: #428bca">{{item.link}}</p>
+                    <p style="font-size: 12px;">
+                        <a ng-click="showItemInFolder(item.path)">在文件夹中显示</a>
+                        <a style="margin-left: 8px" ng-click="remove($index)">从列表中删除</a>
+                        <a style="margin-left: 8px" ng-click="delete($index)">删除文件</a>
+                    </p>
+                </accordion-group>
+            </accordion>
+        </div>
     </div>
 </div>
 

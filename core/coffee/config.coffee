@@ -23,6 +23,7 @@ window.angularapp.config(($routeProvider , $locationProvider , $compileProvider)
   $routeProvider.when('/http', {templateUrl: views.http, controller: 'HttpCtrl'})
   $routeProvider.when('/socket', {templateUrl: views.socket, controller: 'SocketCtrl' })
   $routeProvider.when('/xmpp', {templateUrl: views.xmpp, controller: 'XmppCtrl' })
+  $routeProvider.when('/downloads', {templateUrl: views.downloadlist, controller:'DownlistCtrl' })
   $routeProvider.when('/help', {templateUrl: views.help, controller: ($scope)-> })
   $routeProvider.otherwise({redirectTo: '/http'})
   #configure html5 to get links working on node-webkit

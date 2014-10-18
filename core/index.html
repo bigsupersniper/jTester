@@ -28,6 +28,15 @@
         a{
             cursor: pointer;
         }
+        .breadcrumb{
+            border-radius: 0px;
+            background-color: #222;
+            border-color: #080808;
+        }
+        .breadcrumb>li{
+            color: #ccc;
+            font-weight: bold;
+        }
         #loader { position:absolute; top:0; left:0; right:0; bottom:0; width:100vw; height:100vh; display:table;
             background-color: #333 ;text-align:center; box-sizing:border-box; vertical-align:middle;}
         #loader p { color: #ffffff; display:table-cell; vertical-align:middle; text-align:center;font-size: 60px; font-weight: bolder; }
@@ -44,39 +53,13 @@
         </div>
 
         <div ng-show="!loading">
+            <ol class="breadcrumb navbar-fixed-top">
+                <li>jTester</li>
+                <li>{{navigate[0]}}</li>
+                <li>{{navigate[1]}}</li>
+            </ol>
 
-            <nav class="navbar-inverse navbar-fixed-top" role="banner">
-                <a class="navbar-brand"><strong>jTester</strong></a>
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-book icon-white"></i> <strong>文件</strong>
-                            <!--<b class="caret"></b>-->
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" ng-click="menus.download()">下载内容</a></li>
-                            <li><a href="#" ng-click="menus.showDevTools()">调试工具</a></li>
-                            <li><a href="#" ng-click="menus.restart()">重启</a></li>
-                            <li><a href="#" ng-click="menus.quit()">退出</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/http" >HTTP</a></li>
-                    <li><a href="/socket">SOCKET</a></li>
-                    <li><a href="/xmpp">XMPP</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="icon-book icon-white"></i> <strong>帮助</strong>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/help">查看帮助</a></li>
-                            <li><a href="#" ng-click="menus.about()">关于</a></li>
-                        </ul>
-                    </li>
-                </ul>
-
-            </nav>
-
-            <div ng-view style="margin: 8px ;margin-top: 60px;"></div>
+            <div ng-view style="margin: 8px ;margin-top: 50px;"></div>
 
             <nav class="navbar navbar-inverse navbar-fixed-bottom" >
                 <p class="navbar-text" style="float :none; text-align: center">Design by <em>LINFENG</em> © 2013 - 2014</p>

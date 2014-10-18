@@ -15,12 +15,18 @@
 
 <div style="margin: 10px;">
     <div class="modal-header" style="padding: 5px;">
-        <h3 style="text-align: center;">jTester v0.3.0.20141017</h3>
+        <h3 style="text-align: center;">
+            <a href="#" ng-click="link('https://github.com/bigsupersniper/jTester')">
+                jTester v0.3.1.20141018
+            </a>
+        </h3>
     </div>
     <div class="modal-body">
         <div style="margin-left: 120px;height: 360px;overflow-y: auto">
             <dl class="dl-horizontal" ng-repeat="ver in versions">
-                <dt>{{ver.title}}</dt>
+                <dt>
+                    <a  href="#" ng-click="link(ver.url)">{{ver.title}}</a>
+                </dt>
                 <dd style="color: blue">{{ ver.value }}</dd>
             </dl>
         </div>
