@@ -1,8 +1,12 @@
-jTester
-=======
+Introduction
+============
 
-Asp.Net MVC 接口测试工具<br/>
-简单Socket 收发测试工具<br/>
-使用AngularJS、UI Bootstrap 等框架<br/>
-使用CoffeeScript 作为运行脚本语言<br/>
-使用Node-Webkit 作为运行环境<br/>
+jTester是一个基于Node-Webkit的Asp.Net MVC 接口测试工具与简单Socket 收发测试工具。<br/>
+使用当下流行的前端MVC框架AngularJS作为基础运行框架，使用UI Bootstrap与Bootstrap CSS作为界面显示框架。<br/>
+使用CoffeeScript 作为主要编写语言
+
+How to run On Windows
+=====================
+
+1、下载windows版：https://github.com/rogerwang/node-webkit <br/>
+2、将jTester目录下的所有文件放到nw.exe所在目录下直接运行nw.exe <br/>
