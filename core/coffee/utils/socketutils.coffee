@@ -17,9 +17,11 @@ class clientsocket
           @emit 'data' , data
 
         @client.on 'error' , (error)=>
+          @connected = false
           @emit 'error' , error
 
         @client.on 'end' , ()=>
+          @connected = false
           @emit 'end'
 
         @connected = true
@@ -31,7 +33,6 @@ class clientsocket
     @close = ()->
       if @connected
         @client.end()
-        @connected = false
 
 #inherits EventEmitter class
 __util.inherits clientsocket , __events

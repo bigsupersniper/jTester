@@ -101,7 +101,8 @@ angularapp.controller 'SocketCtrl' ,
             @socket.on 'data' , (data)->
               _client.msgs.push data.toString()
 
-            @socket.on 'error' , (error)->
+            @socket.on 'error' , (error)=>
+              @connected = @socket.connected
               _client.msgs.push error.message
 
             @socket.on 'end' , ()=>
@@ -179,12 +180,14 @@ angularapp.controller 'SocketCtrl' ,
             @socket.on 'data' , (data)->
               _component.msgs.push data.toString()
 
-            @socket.on 'error' , (error)->
+            @socket.on 'error' , (error)=>
+              @connected = @socket.connected
               _component.msgs.push error.message
 
             @socket.on 'end' , ()=>
               @connected = @socket.connected
               @msgs.push "component disconnect from server"
+              console.log @msgs
 
             @socket.connect @host , @port
         starttimer : ()->
