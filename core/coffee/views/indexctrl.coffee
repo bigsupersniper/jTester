@@ -105,7 +105,7 @@ angularapp.controller 'IndexCtrl' ,
         {
           label : '  JSON  '
           click : ()->
-            $scope.navigate = [ 'File' , 'JSON']
+            $scope.navigate = [ 'Run' , 'JSON']
             changepath '/json'
         }
         {
