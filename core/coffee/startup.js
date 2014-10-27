@@ -54,6 +54,7 @@
     require ('./coffee/utils/xmpputils.coffee')
     //views
     require ('./coffee/views/indexctrl.coffee')
+    require ('./coffee/views/jsonctrl.coffee')
     require ('./coffee/views/httpctrl.coffee')
     require ('./coffee/views/xmppctrl.coffee')
     require ('./coffee/views/socketctrl.coffee')

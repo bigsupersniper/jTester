@@ -14,6 +14,7 @@ views =
   uploadfile : __apppath + "/views/uploadfile.html"
   savefile : __apppath + "/views/savefile.html"
   downloadlist : __apppath + "/views/downloadlist.html"
+  json : __apppath + "/views/json.html"
   help : __apppath + "/views/help.html"
   about : __apppath + "/views/about.html"
 
@@ -24,6 +25,7 @@ window.angularapp.config(($routeProvider , $locationProvider , $compileProvider)
   $routeProvider.when('/socket', {templateUrl: views.socket, controller: 'SocketCtrl' })
   $routeProvider.when('/xmpp', {templateUrl: views.xmpp, controller: 'XmppCtrl' })
   $routeProvider.when('/downloads', {templateUrl: views.downloadlist, controller:'DownlistCtrl' })
+  $routeProvider.when('/json', {templateUrl: views.json, controller:'JsonCtrl' })
   $routeProvider.when('/help', {templateUrl: views.help, controller: ($scope)-> })
   $routeProvider.otherwise({redirectTo: '/http'})
   #configure html5 to get links working on node-webkit

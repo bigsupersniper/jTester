@@ -74,25 +74,25 @@ angularapp.controller 'IndexCtrl' ,
       #all menus events
       menus = [
         {
-          label : 'Downloads'
+          label : '  Downloads  '
           click : ()->
             $scope.navigate = [ 'File' , 'Downloads']
             changepath '/downloads'
         }
         {
-          label : 'DevTools'
+          label : '  DevTools  '
           click : ()->
             __nw.Window.get().showDevTools()
         }
         {
-          label : 'Restart'
+          label : '  Restart  '
           click : ()->
             #Clear the HTTP cache in memory and the one on disk
             __require.nw.App.clearCache()
             jTester.restart()
         }
         {
-          label : 'Quit'
+          label : '  Quit  '
           click : ()->
             __require.nw.App.quit()
         }
@@ -101,6 +101,12 @@ angularapp.controller 'IndexCtrl' ,
           click : ()->
             $scope.navigate = [ 'Run' , 'HTTP']
             changepath '/http'
+        }
+        {
+          label : '  JSON  '
+          click : ()->
+            $scope.navigate = [ 'File' , 'JSON']
+            changepath '/json'
         }
         {
           label : '  SOCKET  '
@@ -162,14 +168,14 @@ angularapp.controller 'IndexCtrl' ,
       #test
       testmenu = new __nw.MenuItem { label : '  Run  ' }
       subtestmenu = new __nw.Menu()
-      for m in menus[4..6]
+      for m in menus[4..7]
         subtestmenu.append new __nw.MenuItem { label : m.label , click : m.click }
       testmenu.submenu = subtestmenu
 
       #help
       helpmenu = new __nw.MenuItem { label : '  Help  ' }
       subhelpmenu = new __nw.Menu()
-      for m in menus[7..8]
+      for m in menus[8..9]
         subhelpmenu.append new __nw.MenuItem { label : m.label , click : m.click }
       helpmenu.submenu = subhelpmenu
 
