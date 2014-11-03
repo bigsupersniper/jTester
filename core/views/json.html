@@ -11,8 +11,8 @@
             <accordion-heading>
                 <strong>JSONFormat</strong>
             </accordion-heading>
-            <textarea style="background-color:#ddd;" class="form-control" rows="8"  ng-model="data.json"></textarea>
-            <button class="btn btn-primary" style="margin-top: 15px;" ng-click="execute()">Format</button>
+            <textarea style="background-color:#ddd;" class="form-control" rows="8" ng-model="data.json"></textarea>
+            <button class="btn btn-primary" style="margin-top: 15px;" ng-disabled="data.json.length <= 0" ng-click="execute()">Format</button>
             <div class="well" style="margin-top: 15px" ng-bind-html="data.result"></div>
         </accordion-group>
         </accordion>

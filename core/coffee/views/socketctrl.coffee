@@ -118,6 +118,7 @@ angularapp.controller 'SocketCtrl' ,
         disconnect : ()->
           if @connected
             @socket.close()
+            @socket = new __clientsocket()
         clear : ()->
           @msgs = []
 
@@ -211,5 +212,6 @@ angularapp.controller 'SocketCtrl' ,
         disconnect : ()->
           if @connected
             @socket.close()
+            @socket = new __clientsocket()
         clear : ()->
           @msgs = []
