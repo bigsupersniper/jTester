@@ -122,7 +122,7 @@ class http
           __download.save()
           @$context.action.submit = false
       else
-        jTester.alert.error "下载出错,HTTP #{res.statusCode}"
+        jTester.alert.error "下载出错,HTTP #{res.statusCode} #{res.statusMessage}"
         file.end()
         __fs.unlinkSync file.path
         @$context.action.submit = false
@@ -154,16 +154,20 @@ class http
         @action.submit = false
         jTester.alert.error err.message
       else
-        dataType = res.headers["content-type"] || ''
-        res.on 'data' , (chunk)=>
+        if res.statusCode == 200
+          dataType = res.headers["content-type"] || ''
+          res.on 'data' , (chunk)=>
+            @action.submit = false
+            data = chunk + ''
+            if dataType.indexOf "application/json" > -1
+              data = JSON.parse data
+              data = @datahandle(data)
+              @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{new window.JSONFormatter().jsonToHTML(data)}"
+            else
+              @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{data}"
+        else
           @action.submit = false
-          data = chunk + ''
-          if dataType.indexOf "application/json" > -1
-            data = JSON.parse data
-            data = @datahandle(data)
-            @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{new window.JSONFormatter().jsonToHTML(data)}"
-          else
-            @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{data}"
+          jTester.alert.error "#{res.statusCode} #{res.statusMessage}"
 
 #output http
 window.jTester.http = http
