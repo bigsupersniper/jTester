@@ -50,7 +50,7 @@ angularapp.controller 'HttpCtrl' ,
       $scope.tabs = __cache.httptabs
       #config tab
       $scope.config =
-        address : __httpconfig.address
+        host : __httpconfig.host
         testfile : __httpconfig.testfile
         savefilepath : __httpconfig.savefilepath
 
@@ -117,7 +117,7 @@ angularapp.controller 'HttpCtrl' ,
 
       $scope.saveall = ()->
           #remove last / .replace /(\/*$)/g,""
-        __httpconfig.address = $scope.config.address
+        __httpconfig.host = $scope.config.host
         __httpconfig.testfile = $scope.config.testfile
         __httpconfig.savefilepath = $scope.config.savefilepath
         __httpconfig.items = items

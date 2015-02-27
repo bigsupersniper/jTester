@@ -25,7 +25,7 @@ class http
 
     @execProxy = (method) ->
       @action.submit = true
-      url = __url.resolve __httpconfig.address , "/#{@params.controller}/#{@params.action}/"
+      url = __url.resolve __httpconfig.host , "#{@params.url}"
       config = {method : method , url : url , headers: @headers, data : @params.data }
       if method == "POST"
         config.transformRequest = (obj)->
@@ -91,11 +91,11 @@ class http
   delete : () ->
     @execProxy "DELETE"
 
-  down : () ->
+  download : () ->
     @$context.$modalInstance.close 'dismiss'
     @$context.action.submit = true
     options =
-      uri : __url.resolve __httpconfig.address , "/#{@params.controller}/#{@params.action}/"
+      uri : __url.resolve __httpconfig.address , "#{@params.url}"
       method : "GET",
       headers : @headers
       form : @params.data
@@ -131,12 +131,12 @@ class http
         @$context.action.submit = false
         jTester.alert.error e.message
 
-  upload : ()->
+  postMultipart : ()->
     @action.submit = true
     #close modal
     @$context.$modalInstance.close 'dismiss'
 
-    url = __url.resolve __httpconfig.address , "/#{@params.controller}/#{@params.action}/"
+    url = __url.resolve __httpconfig.address , "#{@params.url}"
     form = new __formdata()
     #form.maxDataSize = @$context.maxDataSize * 1024 * 1024 if @$context.maxDataSize
 

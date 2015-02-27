@@ -8,25 +8,21 @@ window.Controllers =
   Home :
     Get : ()->
       $context.params =
-        controller : "Home"
-        action : "Get"
+        url : "/Home/Get"
         data : {}
       new jTester.http($context).get()
     Post : ()->
       $context.params =
-        controller : "Home"
-        action : "Post"
+        url : "/Home/Post"
         data : {}
       new jTester.http($context).post()
     Upload : ()->
       $context.params =
-        controller : "Home"
-        action : "Upload"
+        url : "/Home/Upload"
         data : {}
       jTester.file.openFile $context
     Download : ()->
       $context.params =
-        controller : "Home"
-        action : "Download"
+        url : "/Home/Download"
         data : {}
       new jTester.file.saveFile $context

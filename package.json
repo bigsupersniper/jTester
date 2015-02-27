@@ -5,7 +5,7 @@
     "webkit": {
         "plugin": true
     },
-    "chromium-args": "--allow-file-access-from-files --disable-web-security",
+    "chromium-args": "--allow-file-access-from-files --disable-web-security --remote-debugging-port=9222",
     "window": {
         "title": "jTester",
         "toolbar": false,
