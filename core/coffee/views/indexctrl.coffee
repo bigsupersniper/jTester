@@ -109,18 +109,6 @@ angularapp.controller 'IndexCtrl' ,
             changepath '/json'
         }
         {
-          label : '  SOCKET  '
-          click : ()->
-            $scope.navigate = [ 'Run' , 'SOCKET']
-            changepath '/socket'
-        }
-        {
-          label : '  XMPP  '
-          click : ()->
-            $scope.navigate = [ 'Run' , 'XMPP']
-            changepath '/xmpp'
-        }
-        {
           label : '  Topics  '
           click : ()->
             $scope.navigate = [ 'Help' , 'Topics']
@@ -145,11 +133,10 @@ angularapp.controller 'IndexCtrl' ,
                   { title : "Angular-ui-Bootstrap", value : "v0.11.2" , url : 'http://angular-ui.github.io/bootstrap/'}
                   { title : "bootstrap css", value : "v3.2.0" , url : 'http://getbootstrap.com/'}
                   { title : "cryptojs", value : "v3.1.2" , url : 'https://github.com/evanvosberg/crypto-js'}
-                  { title : "coffee-script", value : "v1.8.0" , url : 'http://coffeescript.org/'}
-                  { title : "node-uuid", value : "v1.4.1" , url : ''}
-                  { title : "request", value : "v2.33.0" , url : ''}
-                  { title : "simple-xmpp", value : "v0.1.92" , url : ''}
-                  { title : "dateformat", value : "v1.0.8" , url : ''}
+                  { title : "coffee-script", value : "v1.9.1" , url : 'http://coffeescript.org/'}
+                  { title : "node-uuid", value : "v1.4.2" , url : ''}
+                  { title : "request", value : "v2.53.0" , url : ''}
+                  { title : "dateformat", value : "v1.0.11" , url : ''}
                 ]
             }
         }
@@ -168,14 +155,14 @@ angularapp.controller 'IndexCtrl' ,
       #test
       testmenu = new __nw.MenuItem { label : '  Run  ' }
       subtestmenu = new __nw.Menu()
-      for m in menus[4..7]
+      for m in menus[4..5]
         subtestmenu.append new __nw.MenuItem { label : m.label , click : m.click }
       testmenu.submenu = subtestmenu
 
       #help
       helpmenu = new __nw.MenuItem { label : '  Help  ' }
       subhelpmenu = new __nw.Menu()
-      for m in menus[8..9]
+      for m in menus[6..7]
         subhelpmenu.append new __nw.MenuItem { label : m.label , click : m.click }
       helpmenu.submenu = subhelpmenu
 

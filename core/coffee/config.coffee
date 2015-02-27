@@ -8,8 +8,6 @@ __fs = jTester.require.fs
 #all views path
 views =
   http : __apppath + "/views/http.html"
-  socket : __apppath + "/views/socket.html"
-  xmpp : __apppath + "/views/xmpp.html"
   alert : __apppath + "/views/alert.html"
   uploadfile : __apppath + "/views/uploadfile.html"
   savefile : __apppath + "/views/savefile.html"
@@ -22,8 +20,6 @@ views =
 window.angularapp = window.angular.module 'jTester', ['ui.bootstrap' , 'angularFileUpload' , 'ngRoute']
 window.angularapp.config(($routeProvider , $locationProvider , $compileProvider) ->
   $routeProvider.when('/http', {templateUrl: views.http, controller: 'HttpCtrl'})
-  $routeProvider.when('/socket', {templateUrl: views.socket, controller: 'SocketCtrl' })
-  $routeProvider.when('/xmpp', {templateUrl: views.xmpp, controller: 'XmppCtrl' })
   $routeProvider.when('/downloads', {templateUrl: views.downloadlist, controller:'DownlistCtrl' })
   $routeProvider.when('/json', {templateUrl: views.json, controller:'JsonCtrl' })
   $routeProvider.when('/help', {templateUrl: views.help, controller: ($scope)-> })
@@ -37,11 +33,9 @@ window.angularapp.config(($routeProvider , $locationProvider , $compileProvider)
 #config
 config =
   httpconfig :
-    address : ''
+    host : ''
     savefilepath : ''
     testfile : ''
-    items : {}
-  socketconfig :
     items : {}
   globalitems : {}
   save : (cfg)->

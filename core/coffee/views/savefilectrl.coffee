@@ -13,14 +13,14 @@ angularapp.controller 'SaveFileCtrl' ,
       $scope.params =
         filename  : context.params.action
         savefilepath : __httpconfig.savefilepath
-        downlink : __url.resolve __httpconfig.address , "/#{context.params.controller}/#{context.params.action}"
+        downlink : __url.resolve __httpconfig.address , "#{context.params.url}"
 
       $scope.change = (path)->
         $scope.params.savefilepath = path
 
       $scope.save = ()->
         context.params.savefilepath = $scope.params.savefilepath
-        new jTester.http(context).down()
+        new jTester.http(context).download()
 
       $scope.cancel = ()->
         $modalInstance.close 'dismiss'
