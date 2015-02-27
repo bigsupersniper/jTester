@@ -21,7 +21,8 @@
     <div class="modal-body">
         <div class="input-group">
             <span class="input-group-addon">服务器地址</span>
-            <input type="url" class="form-control" ng-model="config.address"  style="width: 300px;" placeholder="IP Address">
+            <input type="url" class="form-control" ng-model="config.host"  style="width: 300px;" placeholder="Host">
+            <button class="btn btn-primary" style="margin-left: 50%" ng-click="saveall()">保存全部</button>
         </div>
         <div class="input-group" style="margin-top: 10px;">
             <span class="input-group-addon">测试JS路径</span>

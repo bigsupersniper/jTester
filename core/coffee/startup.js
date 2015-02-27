@@ -35,7 +35,6 @@
         path: require('path'),
         querystring: require('querystring'),
         url: require('url'),
-        xmpp : require('./node_modules/simple-xmpp'),
         dateformat : require('./node_modules/dateformat'),
         request: require('./node_modules/request'),
         uuid: require('./node_modules/node-uuid/uuid'),
@@ -50,14 +49,10 @@
     require ('./coffee/config.coffee')
     //utils
     require ('./coffee/utils/utils.coffee')
-    require ('./coffee/utils/socketutils.coffee')
-    require ('./coffee/utils/xmpputils.coffee')
     //views
     require ('./coffee/views/indexctrl.coffee')
     require ('./coffee/views/jsonctrl.coffee')
     require ('./coffee/views/httpctrl.coffee')
-    require ('./coffee/views/xmppctrl.coffee')
-    require ('./coffee/views/socketctrl.coffee')
     require ('./coffee/views/downlistctrl.coffee')
     require ('./coffee/views/uploadfilectrl.coffee')
     require ('./coffee/views/savefilectrl.coffee')

@@ -16,7 +16,7 @@ angularapp.controller 'UploadFileCtrl' ,
 
       $scope.upload = ()->
         context.params.files = $scope.files
-        new jTester.http(context).upload()
+        new jTester.http(context).postMultipart()
 
       $scope.cancel = ()->
         $modalInstance.close 'dismiss'
