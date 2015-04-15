@@ -130,7 +130,7 @@ angularapp.controller 'IndexCtrl' ,
                   { title : "Node-Webkit", value : process.versions['node-webkit'] , url : 'https://github.com/rogerwang/node-webkit'}
                   { title : "Node", value : process.versions['node'] , url : 'http://nodejs.org/'}
                   { title : "ArgularJS", value : "v1.2.26" , url : 'http://angularjs.org/'}
-                  { title : "Angular-ui-Bootstrap", value : "v0.11.2" , url : 'http://angular-ui.github.io/bootstrap/'}
+                  { title : "Angular-ui-Bootstrap", value : "v0.12.1" , url : 'http://angular-ui.github.io/bootstrap/'}
                   { title : "bootstrap css", value : "v3.2.0" , url : 'http://getbootstrap.com/'}
                   { title : "cryptojs", value : "v3.1.2" , url : 'https://github.com/evanvosberg/crypto-js'}
                   { title : "coffee-script", value : "v1.9.1" , url : 'http://coffeescript.org/'}
