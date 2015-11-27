@@ -17,7 +17,7 @@ views =
   about : __apppath + "/views/about.html"
 
 #config angular module
-window.angularapp = window.angular.module 'jTester', ['ui.bootstrap' , 'angularFileUpload' , 'ngRoute']
+window.angularapp = window.angular.module 'jTester', ['ui.bootstrap' , 'ui.uploader' , 'ngRoute']
 window.angularapp.config(($routeProvider , $locationProvider , $compileProvider) ->
   $routeProvider.when('/http', {templateUrl: views.http, controller: 'HttpCtrl'})
   $routeProvider.when('/downloads', {templateUrl: views.downloadlist, controller:'DownlistCtrl' })
@@ -25,7 +25,10 @@ window.angularapp.config(($routeProvider , $locationProvider , $compileProvider)
   $routeProvider.when('/help', {templateUrl: views.help, controller: ($scope)-> })
   $routeProvider.otherwise({redirectTo: '/http'})
   #configure html5 to get links working on node-webkit
-  $locationProvider.html5Mode(true)
+  $locationProvider.html5Mode {
+    enabled: true
+    requireBase: false
+  }
   #href unsafe solution
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(app):/);
 )

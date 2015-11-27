@@ -16,7 +16,7 @@
             <span class="btn btn-success fileinput-open">
                 <i class="glyphicon glyphicon-folder-open"></i>
                 <span style="margin-left:8px">添加文件</span>
-                <input type="file" ng-file-select="change($files[0].path)">
+                <input type="file" ng-change="change(file)" ng-model="file"/>
             </span>
         </div>
         <ul class="list-group" style="margin-top: 50px;">

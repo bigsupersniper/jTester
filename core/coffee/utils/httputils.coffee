@@ -92,10 +92,10 @@ class http
     @execProxy "DELETE"
 
   download : () ->
-    @$context.$modalInstance.close 'dismiss'
+    @$context.$uibModalInstance.close 'dismiss'
     @$context.action.submit = true
     options =
-      uri : __url.resolve __httpconfig.address , "#{@params.url}"
+      uri : __url.resolve __httpconfig.host , "#{@params.url}"
       method : "GET",
       headers : @headers
       form : @params.data
@@ -134,9 +134,9 @@ class http
   postMultipart : ()->
     @action.submit = true
     #close modal
-    @$context.$modalInstance.close 'dismiss'
+    @$context.$uibModalInstance.close 'dismiss'
 
-    url = __url.resolve __httpconfig.address , "#{@params.url}"
+    url = __url.resolve __httpconfig.host , "#{@params.url}"
     form = new __formdata()
     #form.maxDataSize = @$context.maxDataSize * 1024 * 1024 if @$context.maxDataSize
 

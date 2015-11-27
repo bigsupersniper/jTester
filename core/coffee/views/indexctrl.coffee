@@ -9,7 +9,7 @@ __config = jTester.config
 angularapp = window.angularapp
 angularapp.controller 'IndexCtrl' ,
   class IndexCtrl
-    constructor : ($scope ,$modal , $timeout , $location) ->
+    constructor : ($scope ,$uibModal , $timeout , $location) ->
       $scope.loading = true
       $timeout ()->
         $scope.loading = false
@@ -19,7 +19,7 @@ angularapp.controller 'IndexCtrl' ,
       jTester.alert =
         show : (type , message , timeout)->
           timeout = timeout || 3000
-          $modal.open {
+          $uibModal.open {
             templateUrl : __views.alert
             backdrop : 'center'
             resolve : {
@@ -30,11 +30,11 @@ angularapp.controller 'IndexCtrl' ,
               timeout : ()->
                 return timeout
             }
-            controller: ($scope , $modalInstance , $timeout , message , type, timeout)->
+            controller: ($scope , $uibModalInstance , $timeout , message , type, timeout)->
               $scope.message = message
               $scope.type = type
               $timeout ()->
-                $modalInstance.close 'dismiss'
+                $uibModalInstance.close 'dismiss'
               , timeout
           }
         success : (message , timeout)->
@@ -45,7 +45,7 @@ angularapp.controller 'IndexCtrl' ,
       #static class jTester.file
       jTester.file =
         openFile : ($context)->
-          $modal.open {
+          $uibModal.open {
             templateUrl: __views.uploadfile
             backdrop : 'static'
             resolve :{
@@ -55,7 +55,7 @@ angularapp.controller 'IndexCtrl' ,
             controller : 'UploadFileCtrl'
           }
         saveFile : ($context)->
-          $modal.open {
+          $uibModal.open {
             templateUrl: __views.savefile
             backdrop : 'static'
             resolve :{
@@ -117,7 +117,7 @@ angularapp.controller 'IndexCtrl' ,
         {
           label : '  About  '
           click : ()->
-            $modal.open {
+            $uibModal.open {
               templateUrl: __views.about
               backdrop : 'center'
               controller : ($scope)->
@@ -129,14 +129,14 @@ angularapp.controller 'IndexCtrl' ,
                   { title : "Chromium", value : process.versions['chromium'] , url : ''}
                   { title : "Node-Webkit", value : process.versions['node-webkit'] , url : 'https://github.com/rogerwang/node-webkit'}
                   { title : "Node", value : process.versions['node'] , url : 'http://nodejs.org/'}
-                  { title : "ArgularJS", value : "v1.2.26" , url : 'http://angularjs.org/'}
-                  { title : "Angular-ui-Bootstrap", value : "v0.12.1" , url : 'http://angular-ui.github.io/bootstrap/'}
+                  { title : "ArgularJS", value : "v1.4.8" , url : 'http://angularjs.org/'}
+                  { title : "Angular-ui-Bootstrap", value : "v0.14.3" , url : 'http://angular-ui.github.io/bootstrap/'}
                   { title : "bootstrap css", value : "v3.2.0" , url : 'http://getbootstrap.com/'}
-                  { title : "cryptojs", value : "v3.1.2" , url : 'https://github.com/evanvosberg/crypto-js'}
-                  { title : "coffee-script", value : "v1.9.1" , url : 'http://coffeescript.org/'}
-                  { title : "node-uuid", value : "v1.4.2" , url : ''}
-                  { title : "request", value : "v2.53.0" , url : ''}
-                  { title : "dateformat", value : "v1.0.11" , url : ''}
+                  { title : "cryptojs", value : "v3.1.5" , url : 'https://github.com/evanvosberg/crypto-js'}
+                  { title : "coffee-script", value : "v1.10.0" , url : 'http://coffeescript.org/'}
+                  { title : "node-uuid", value : "v1.4.7" , url : ''}
+                  { title : "request", value : "v2.67.0" , url : ''}
+                  { title : "dateformat", value : "v1.0.12" , url : ''}
                 ]
             }
         }

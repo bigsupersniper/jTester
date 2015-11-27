@@ -31,19 +31,19 @@
             <a href="#" ng-disabled="items.length <= 0" ng-click="clear()" class="pull-right">全部清除</a>
         </div>
         <div class="modal-body">
-            <accordion close-others="true">
-                <accordion-group ng-repeat="item in items track by $index | filter : { filename : search }" is-open="isopen">
-                    <accordion-heading>
+            <uib-accordion close-others="true">
+                <uib-accordion-group ng-repeat="item in items track by $index | filter : { filename : search }" is-open="isopen">
+                    <uib-accordion-heading>
                         <strong>{{item.filename}}</strong>
-                    </accordion-heading>
+                    </uib-accordion-heading>
                     <p style="color: #428bca">{{item.link}}</p>
                     <p style="font-size: 12px;">
                         <a ng-click="showItemInFolder(item.path)">在文件夹中显示</a>
                         <a style="margin-left: 8px" ng-click="remove($index)">从列表中删除</a>
                         <a style="margin-left: 8px" ng-click="delete($index)">删除文件</a>
                     </p>
-                </accordion-group>
-            </accordion>
+                </uib-accordion-group>
+            </uib-accordion>
         </div>
     </div>
 </div>

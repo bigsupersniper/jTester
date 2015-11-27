@@ -8,8 +8,8 @@ __httpconfig = __config.httpconfig
 angularapp = window.angularapp
 angularapp.controller 'SaveFileCtrl' ,
   class SaveFileCtrl
-    constructor : ($scope , $modalInstance , context)->
-      context.$modalInstance = $modalInstance
+    constructor : ($scope , $uibModalInstance , context)->
+      context.$uibModalInstance = $uibModalInstance
       $scope.params =
         filename  : context.params.action
         savefilepath : __httpconfig.savefilepath
@@ -23,4 +23,4 @@ angularapp.controller 'SaveFileCtrl' ,
         new jTester.http(context).download()
 
       $scope.cancel = ()->
-        $modalInstance.close 'dismiss'
+        $uibModalInstance.close 'dismiss'

@@ -1,1 +1,1 @@
-{"httpconfig":{"host":"http://localhost:64275/","savefilepath":"E:\\","testfile":"./coffee/test/default.coffee","items":{"client_id":"3o31A3lNASL8NZO2ATXBV52mrs0rcr7mLEvcUBh1B5N9M29v","client_secret":"yvT66pfP5wkik7Ma","api_token":"79dae9b8d0fbbbf6723ac4ca3ca19dcc73040cd2","api_secret":"C31PGq5b6SeyIfSm"}},"globalitems":{}}
+{"httpconfig":{"host":"http://localhost:8080/","savefilepath":"E:\\","testfile":"F:\\GitHub\\jTester\\core\\coffee\\test\\ignore\\hfs.coffee","items":{}},"globalitems":{},"socketconfig":{}}

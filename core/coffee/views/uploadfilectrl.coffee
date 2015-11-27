@@ -5,18 +5,20 @@ jTester = window.jTester
 angularapp = window.angularapp
 angularapp.controller 'UploadFileCtrl' ,
   class OpenFileCtrl
-    constructor : ($scope , $modalInstance , context)->
-      context.$modalInstance = $modalInstance
+    constructor : ($scope , $uibModalInstance , uiUploader , context)->
+      context.$uibModalInstance = $uibModalInstance
+
       $scope.files = []
-      $scope.change = (file)->
-        $scope.files.push file
+
+      $scope.change = (files)->
+        console.log files
 
       $scope.remove = (index)->
         $scope.files.splice index , 1
 
       $scope.upload = ()->
         context.params.files = $scope.files
-        new jTester.http(context).postMultipart()
+        ##new jTester.http(context).postMultipart()
 
       $scope.cancel = ()->
-        $modalInstance.close 'dismiss'
+        $uibModalInstance.close 'dismiss'

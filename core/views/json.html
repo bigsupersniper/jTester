@@ -6,15 +6,15 @@
         <h4 class="panel-title">JSON字符串格式化</h4>
     </div>
     <div class="modal-body">
-        <accordion close-others="true">
-            <accordion-group is-open="true">
-            <accordion-heading>
+        <uib-accordion close-others="true">
+            <uib-accordion-group is-open="true">
+            <uib-accordion-heading>
                 <strong>JSONFormat</strong>
-            </accordion-heading>
+            </uib-accordion-heading>
             <textarea style="background-color:#ddd;" class="form-control" rows="8" ng-model="data.json"></textarea>
             <button class="btn btn-primary" style="margin-top: 15px;" ng-disabled="data.json.length <= 0" ng-click="execute()">Format</button>
             <div class="well" style="margin-top: 15px" ng-bind-html="data.result"></div>
-        </accordion-group>
-        </accordion>
+        </uib-accordion-group>
+        </uib-accordion>
     </div>
 </div>
