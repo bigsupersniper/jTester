@@ -8,6 +8,7 @@
 
     //handle uncaughtException
     process.on('uncaughtException', function(err) {
+        console.log(err);
         var message = decodeURIComponent(err.message)
         return alert(message);
     });

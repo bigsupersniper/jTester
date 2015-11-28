@@ -33,6 +33,7 @@ angularapp.controller 'HttpCtrl' ,
                 $context =
                   $http : $http
                   $sce : $sce
+                  $scope : $scope
                   action : that
                 if that.script.length > 10
                   eval "(#{that.script})($context);"

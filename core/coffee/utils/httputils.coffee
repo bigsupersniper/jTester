@@ -14,40 +14,44 @@ __download = jTester.download
 
 #class http
 class http
-  constructor : ($context)->
-    @$context = $context
-    @$http = $context.$http || {}
-    @$sce = $context.$sce || {}
-    @params = $context.params || {}
+  constructor : (@$context)->
+    @$http = @$context.$http || {}
+    @$sce = @$context.$sce || {}
+    @params = @$context.params || {}
     @headers = @params.headers || {}
-    @action = $context.action || {}
-    @datahandle = $context.datahandle || (data)-> return data
+    @action = @$context.action || {}
+    @datahandle = @$context.datahandle || (data)-> return data
 
-    @execProxy = (method) ->
+    @submitRequest = (method , json) ->
       @action.submit = true
       url = __url.resolve __httpconfig.host , "#{@params.url}"
       config = {method : method , url : url , headers: @headers, data : @params.data }
       if method == "POST"
-        config.transformRequest = (obj)->
-          str = []
-          for k , v of obj
-            str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v))
-          return str.join '&'
-        config.headers["Content-Type"] = "application/x-www-form-urlencoded"
+        if json
+          config.headers["Content-Type"] = "application/json"
+        else
+          config.transformRequest = (obj)->
+            str = []
+            for k , v of obj
+              str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v))
+            return str.join '&'
+          config.headers["Content-Type"] = "application/x-www-form-urlencoded"
 
-      @$http(config).success (data , status , headers , config) =>
+      @$http(config).then((response) =>
         @action.submit = false
-        dataType = headers("content-type") || ""
+        dataType = response.headers("content-type") || ""
         if dataType.indexOf "application/json" > -1
-          data = @datahandle(data)
+          data = @datahandle(response.data)
           @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{new window.JSONFormatter().jsonToHTML(data)}"
         else
           @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{data}}"
-      .error (data , status , headers, config) =>
-        @action.submit = false
-        jTester.alert.error "#{url} , 请求失败"
+        @$context.$scope.$apply()
+       ,(error) =>
+          @action.submit = false
+          jTester.alert.error "#{url} , #{error.status} , #{error.statusText}"
+      )
 
-    @getFileName = (cd)->
+    @_getFileName = (cd)->
       if cd
         arr = cd.split(";")
         filename = ""
@@ -63,7 +67,7 @@ class http
       else
         return ""
 
-    @createFile = (dir , filename , ext)->
+    @_createFile = (dir , filename , ext)->
       path = __path.join dir , filename
       file = null
       if !__fs.existsSync path
@@ -80,16 +84,19 @@ class http
       return file
 
   get : () ->
-    @execProxy "GET"
+    @submitRequest "GET"
 
   post : () ->
-    @execProxy "POST"
+    @submitRequest "POST"
+
+  postjson : () ->
+    @submitRequest "POST" , true
 
   put : () ->
-    @execProxy "PUT"
+    @submitRequest "PUT"
 
   delete : () ->
-    @execProxy "DELETE"
+    @submitRequest "DELETE"
 
   download : () ->
     @$context.$uibModalInstance.close 'dismiss'
@@ -102,11 +109,11 @@ class http
 
     req = __request options
     req.on 'response' , (res)=>
-      filename = @getFileName res.headers['content-disposition']
+      filename = @_getFileName res.headers['content-disposition']
       ext = __path.extname filename
       if !filename
         filename = @params.action
-      file = @createFile @params.savefilepath , filename , ext
+      file = @_createFile @params.savefilepath , filename , ext
       if res.statusCode == 200
         res.on 'data' , (chunk) ->
           file.write chunk
@@ -131,7 +138,7 @@ class http
         @$context.action.submit = false
         jTester.alert.error e.message
 
-  postMultipart : ()->
+  upload : ()->
     @action.submit = true
     #close modal
     @$context.$uibModalInstance.close 'dismiss'
@@ -146,10 +153,10 @@ class http
 
     if @params.files
       for file , i in @params.files
-        form.append 'file' + i , __fs.createReadStream file
+        form.append 'file' + i , __fs.createReadStream file.path
 
     #modify form-data source submit(parms , cb) to submit(params , headers , cb)
-    form.submit url , @headers , (err , res)=>
+    form.submit url, @headers, (err , res)=>
       if err
         @action.submit = false
         jTester.alert.error err.message
@@ -165,6 +172,7 @@ class http
               @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{new window.JSONFormatter().jsonToHTML(data)}"
             else
               @action.result = @$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{data}"
+            @$context.$scope.$apply()
         else
           @action.submit = false
           jTester.alert.error "#{res.statusCode} #{res.statusMessage}"

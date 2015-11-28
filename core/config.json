@@ -1,1 +1,1 @@
-{"httpconfig":{"host":"http://localhost:8080/","savefilepath":"E:\\","testfile":"F:\\GitHub\\jTester\\core\\coffee\\test\\ignore\\hfs.coffee","items":{}},"globalitems":{},"socketconfig":{}}
+{"httpconfig":{"host":"http://localhost:5535/","savefilepath":"E:\\","testfile":"./coffee/test/default.coffee","items":{}},"globalitems":{},"socketconfig":{}}

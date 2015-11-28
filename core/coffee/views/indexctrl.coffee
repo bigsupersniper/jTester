@@ -44,7 +44,7 @@ angularapp.controller 'IndexCtrl' ,
 
       #static class jTester.file
       jTester.file =
-        openFile : ($context)->
+        upload : ($context)->
           $uibModal.open {
             templateUrl: __views.uploadfile
             backdrop : 'static'
@@ -54,7 +54,7 @@ angularapp.controller 'IndexCtrl' ,
             }
             controller : 'UploadFileCtrl'
           }
-        saveFile : ($context)->
+        download : ($context)->
           $uibModal.open {
             templateUrl: __views.savefile
             backdrop : 'static'

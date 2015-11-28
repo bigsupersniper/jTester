@@ -16,12 +16,12 @@
             <span class="btn btn-success fileinput-open">
                 <i class="glyphicon glyphicon-folder-open"></i>
                 <span style="margin-left:8px">添加文件</span>
-                <input type="file" ng-change="change(file)" ng-model="file"/>
+                <input type="file" onchange="angular.element(this).scope().change(this.files[0])"/>
             </span>
         </div>
         <ul class="list-group" style="margin-top: 50px;">
             <li class="list-group-item" ng-repeat="file in files">
-                {{ file }}
+                {{ file.name }}
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="remove($index)">&times;</button>
             </li>
         </ul>
