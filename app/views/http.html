@@ -1,0 +1,32 @@
+
+<div style="margin: 5px ;margin-top: 20px;">
+    <uib-tabset>
+        <uib-tab heading="开始">
+            <div class="tab-pane fade in" style="margin-top: 10px;" >
+                <div ng-include src="'./app/views/httpconfig.html'" ng-controller="HttpConfigCtrl" ></div>
+            </div>
+        </uib-tab>
+        <uib-tab ng-repeat="tab in tabs" heading="{{tab.name}}" >
+            <div class="tab-pane fade in" style="margin-top: 10px;" >
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">{{tab.name}} <span class="badge pull-right">{{ tab.items.length }}</span></h4>
+                    </div>
+                    <div class="panel-body">
+                        <uib-accordion close-others="true">
+                            <uib-accordion-group ng-repeat="item in tab.items" is-open="isopen">
+                                <uib-accordion-heading>
+                                    <strong>{{item.name}}</strong>
+                                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                                </uib-accordion-heading>
+                                <textarea style="background-color:#ddd;" class="form-control" rows="{{ item.rows }}"  ng-model="item.text"></textarea>
+                                <button class="btn btn-primary" style="margin-top: 15px;" ng-click="item.submit()" ng-disabled="item.submited" >{{ !item.submited ? 'Submit' : 'Loading' }}</button>
+                                <div class="well" style="margin-top: 15px" ng-bind-html="item.result"></div>
+                            </uib-accordion-group>
+                        </uib-accordion>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>

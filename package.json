@@ -1,6 +1,6 @@
 {
     "name": "jTester",
-    "main": "app://linfeng/core/index.html",
+    "main": "app://linfeng/app/index.html",
     "singleinstance" : true,
     "webkit": {
         "plugin": true
@@ -8,7 +8,7 @@
     "chromium-args": "--allow-file-access-from-files --disable-web-security --remote-debugging-port=9222",
     "window": {
         "title": "jTester",
-        "toolbar": false,
+        "toolbar": true,
         "frame": true,
         "width": 1024,
         "height": 650,

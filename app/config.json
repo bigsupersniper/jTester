@@ -1,0 +1,7 @@
+{
+    "http": {
+        "testfile": "F:\\GitHub\\jTester\\app\\coffee\\test\\default.coffee",
+        "baseUrl": "http://localhost:6079/"
+    },
+    "items": {}
+}

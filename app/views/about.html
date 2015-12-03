@@ -1,0 +1,34 @@
+
+<style type="text/css">
+    .modal-content{
+        margin-top: 100px;
+        width: 700px;
+        margin-left: -60px;
+    }
+    .doc-text{
+        margin-left: 20px;
+    }
+    dl {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div style="margin: 10px;">
+    <div class="modal-header" style="padding: 5px;">
+        <h3 style="text-align: center;">
+            <a href="#" ng-click="open('https://github.com/bigsupersniper/jTester')">
+                jTester v0.6.0.20151203
+            </a>
+        </h3>
+    </div>
+    <div class="modal-body">
+        <div style="margin-left: 120px;height: 360px;overflow-y: auto">
+            <dl class="dl-horizontal" ng-repeat="ver in versions">
+                <dt>
+                    <a  href="#" ng-click="link(ver.url)">{{ver.title}}</a>
+                </dt>
+                <dd style="color: blue">{{ ver.value }}</dd>
+            </dl>
+        </div>
+    </div>
+</div>
