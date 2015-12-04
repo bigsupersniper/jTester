@@ -17,7 +17,7 @@ jTester.app.controller 'HttpCtrl' ,
             name : tb
             items : []
           for n , fn of items
-            text = (JSON.stringify fn.data || {} , null , 4)
+            text = (JSON.stringify fn.data || {} , null , 3)
             match = text.match(/\n/gi)
             #textarea rows
             rows = 2
