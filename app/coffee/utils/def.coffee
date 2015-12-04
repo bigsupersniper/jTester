@@ -23,6 +23,9 @@ def =
       baseUrl : "" #fully qualified uri string used as the base url
       testfile : "" #main test file path
     items : { } #global key-value pair
+    #events
+    httpChange : ()->
+    itemsChange : ()->
     init : ()->
     save : (config)->
   #view tab define

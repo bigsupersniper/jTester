@@ -5,7 +5,7 @@ config = jTester.Config
 #class ItemConfigCtrl
 jTester.app.controller 'ItemConfigCtrl' ,
   class ItemConfigCtrl
-    constructor : ($scope) ->
+    constructor : ($scope ) ->
       #item list
       $scope.items = []
       #item config
@@ -50,7 +50,16 @@ jTester.app.controller 'ItemConfigCtrl' ,
         _itemconfig = {}
         save()
 
-      #init page
-      for k , v of config.items || {}
-        $scope.items.push { key : k , value : v }
-      _itemconfig = config.items || {}
+      initPage = ()->
+        for k , v of config.items || {}
+          $scope.items.push { key : k , value : v }
+        _itemconfig = config.items || {}
+
+      initPage()
+
+      #register items change event
+      config.itemsChange = ()->
+        $scope.items = []
+        initPage();
+
+

@@ -46,4 +46,8 @@ jTester.app.controller 'HttpConfigCtrl' ,
           config.save config
           jTester.alert.success '保存成功'
 
-
+      #register httpconfig change
+      config.httpChange = ()->
+        $scope.httpconfig =
+          baseUrl : config.http.baseUrl || ''
+          testfile : config.http.testfile || ''

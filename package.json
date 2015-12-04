@@ -1,7 +1,7 @@
 {
     "name": "jTester",
     "main": "app://linfeng/app/index.html",
-    "singleinstance" : true,
+    "singleinstance" : false,
     "webkit": {
         "plugin": true
     },

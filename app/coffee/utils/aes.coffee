@@ -11,7 +11,7 @@ AES =
 
     return encrypted.ciphertext.toString cryptojs.enc.Base64
 
-  decrypt_ecb : (key , data )->
+  decrypt_ecb : (key , data)->
     key = cryptojs.enc.Utf8.parse key
     decrypted = cryptojs.AES.decrypt(data, key , {
       mode: cryptojs.mode.ECB

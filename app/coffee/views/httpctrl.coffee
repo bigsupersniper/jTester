@@ -72,9 +72,10 @@ jTester.DefaultHttpHandler =
       context.ref.submited = false
       dataType = response.headers["content-type"] || ""
       if dataType.indexOf "application/json" > -1
-        data = JSON.parse body
+        if typeof body == "string"
+          body = JSON.parse body
         context.ref.result = context.$sce.trustAsHtml "#{new Date().toLocaleString()}
-            <p></p> #{new window.JSONFormatter().jsonToHTML(data)}"
+            <p></p> #{new window.JSONFormatter().jsonToHTML(body)}"
       else
         context.ref.result = context.$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{body}"
       context.$scope.$apply()

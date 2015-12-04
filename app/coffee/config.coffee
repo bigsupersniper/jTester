@@ -21,6 +21,10 @@ config =
   save : (cfg)->
     json = JSON.stringify cfg , null , 4
     fs.writeFileSync  configPath, json , { encoding : "utf-8" }
+    if @httpChange
+      @httpChange()
+    if @itemsChange
+      @itemsChange()
 
 #init config
 config.init()

@@ -96,13 +96,6 @@ jTester.app.controller 'IndexCtrl' ,
               redirect '/json'
           }
           {
-            label : '  Topics  '
-            click : ()->
-              jTester.alert.success 'Nothing yet'
-              #$scope.navigate = [ 'Help' , 'Topics']
-              #redirect '/help'
-          }
-          {
             label : '  About  '
             click : ()->
               $uibModal.open {
@@ -150,7 +143,7 @@ jTester.app.controller 'IndexCtrl' ,
         #help menu
         helpmenu = new nw.MenuItem { label : '  Help  ' }
         subhelpmenu = new nw.Menu()
-        for m in menus[5..6]
+        for m in menus[5..5]
           subhelpmenu.append new nw.MenuItem { label : m.label , click : m.click }
         helpmenu.submenu = subhelpmenu
 
