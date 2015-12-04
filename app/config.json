@@ -1,7 +1,14 @@
 {
     "http": {
-        "testfile": "F:\\GitHub\\jTester\\app\\coffee\\test\\default.coffee",
-        "baseUrl": "http://localhost:6079/"
+        "testfile": "F:\\GitHub\\jTester\\app\\coffee\\test\\ignore\\sf.coffee",
+        "baseUrl": "http://localhost:6079"
     },
-    "items": {}
+    "items": {
+        "client_id": "3o31A3lNASL8NZO2ATXBV52mrs0rcr7mLEvcUBh1B5N9M29v",
+        "client_secret": "yvT66pfP5wkik7Ma",
+        "imei": "a2a329f2c8f044f9bf1c7810e81c5189",
+        "api_token": "44db6d8f89b54442f9f81267ef49126c3314993c",
+        "api_secret": "ExGn88jyRXBQdjer",
+        "school_url": "http://192.168.1.43:6080"
+    }
 }
