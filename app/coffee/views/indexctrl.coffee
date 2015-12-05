@@ -6,7 +6,7 @@ fs = window.require 'fs'
 #class IndexCtrl
 jTester.app.controller 'IndexCtrl' ,
   class IndexCtrl
-    constructor : ($scope ,$uibModal , $timeout , $sce , $location) ->
+    constructor : ($scope ,$uibModal , $timeout , $location) ->
       $scope.loading = true
       #$scope.testcode = '123123'
       $timeout ()->
@@ -18,7 +18,7 @@ jTester.app.controller 'IndexCtrl' ,
         if exists
           fs.readFile jTester.Config.http.testfile , 'utf-8' , (err , data)->
             $scope.testfile = jTester.Config.http.testfile
-            $scope.testcode = $sce.trustAsHtml data.replace(/\n/gi , '<br/>')
+            $scope.testcode = data #$sce.trustAsHtml data.replace(/\n/gi , '<br/>')
 
       #******************************** jTester alert part ********************************#
       jTester.alert =

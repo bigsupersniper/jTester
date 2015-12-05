@@ -8,12 +8,12 @@
     <div class="modal-body">
         <uib-accordion close-others="true">
             <uib-accordion-group is-open="true">
-            <uib-accordion-heading>
-                <strong>JSONFormat</strong>
-            </uib-accordion-heading>
-            <textarea style="background-color:#ddd;" class="form-control" rows="8" ng-model="data.json"></textarea>
-            <button class="btn btn-primary" style="margin-top: 15px;" ng-disabled="data.json.length <= 0" ng-click="parse()">Format</button>
-            <div class="well" style="margin-top: 15px" ng-bind-html="data.result"></div>
+                <uib-accordion-heading>
+                    <strong>JSONFormat</strong>
+                </uib-accordion-heading>
+                <textarea style="background-color:#ddd;" class="form-control" rows="8" ng-model="data.json"></textarea>
+                <button class="btn btn-primary" style="margin-top: 15px;" ng-disabled="data.json.length <= 0" ng-click="parse()">Format</button>
+                <div class="well" style="margin-top: 15px" ng-bind-html="data.result"></div>
         </uib-accordion-group>
         </uib-accordion>
     </div>
