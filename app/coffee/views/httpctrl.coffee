@@ -52,12 +52,12 @@ jTester.app.controller 'HttpCtrl' ,
             tab.items.push item
           #add tab
           tabs.push tab
-        return tabs
+        $scope.tabs = tabs
 
       #load test file and init tabs
       testfile = config.http.testfile || './app/coffee/test/default.coffee'
       window.require testfile
-      $scope.tabs = loadTabs()
+      loadTabs()
 
 #default http callback
 jTester.DefaultHttpHandler =

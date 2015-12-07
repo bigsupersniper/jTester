@@ -1,7 +1,6 @@
 #import jTester namespace
 jTester = window.jTester
 nw = window.require 'nw.gui'
-fs = window.require 'fs'
 
 #class IndexCtrl
 jTester.app.controller 'IndexCtrl' ,
@@ -12,13 +11,6 @@ jTester.app.controller 'IndexCtrl' ,
       $timeout ()->
         $scope.loading = false
       , 1500
-
-      #load test code
-      fs.exists jTester.Config.http.testfile , (exists)->
-        if exists
-          fs.readFile jTester.Config.http.testfile , 'utf-8' , (err , data)->
-            $scope.testfile = jTester.Config.http.testfile
-            $scope.testcode = data #$sce.trustAsHtml data.replace(/\n/gi , '<br/>')
 
       #******************************** jTester alert part ********************************#
       jTester.alert =

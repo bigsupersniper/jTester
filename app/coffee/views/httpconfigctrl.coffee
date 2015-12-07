@@ -3,6 +3,7 @@ jTester = window.jTester
 config = jTester.Config
 path = window.require 'path'
 nw = window.require 'nw.gui'
+fs = window.require 'fs'
 
 #class HttpConfigCtrl
 jTester.app.controller 'HttpConfigCtrl' ,
@@ -46,8 +47,20 @@ jTester.app.controller 'HttpConfigCtrl' ,
           config.save config
           jTester.alert.success '保存成功'
 
+      #load test code
+      loadTestCode = ()->
+        fs.exists jTester.Config.http.testfile , (exists)->
+          if exists
+            fs.readFile jTester.Config.http.testfile , 'utf-8' , (err , data)->
+              $scope.testfile = jTester.Config.http.testfile
+              $scope.testcode = data
+
       #register httpconfig change
       config.httpChange = ()->
         $scope.httpconfig =
           baseUrl : config.http.baseUrl || ''
           testfile : config.http.testfile || ''
+
+      #load code
+      loadTestCode()
+
