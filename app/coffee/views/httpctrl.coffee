@@ -9,6 +9,12 @@ jTester.app.controller 'HttpCtrl' ,
       #view tab
       $scope.tabs = []
 
+      $scope.aceOptions =
+        mode : 'json',
+        useWrapMode : true
+        showGutter: true
+        theme:'tomorrow_night_eighties'
+
       #resolve window.UnitTests
       loadTabs = () ->
         tabs = []

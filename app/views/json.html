@@ -11,7 +11,13 @@
                 <uib-accordion-heading>
                     <strong>JSONFormat</strong>
                 </uib-accordion-heading>
-                <textarea style="background-color:#ddd;" class="form-control" rows="8" ng-model="data.json"></textarea>
+                <!--<textarea style="background-color:#ddd;" class="form-control" rows="8" ng-model="data.json"></textarea>-->
+                <div ui-ace="{
+                    mode : 'json',
+                    useWrapMode : true,
+                    showGutter: true,
+                    theme:'tomorrow_night_eighties'
+                }" style="height: 360px;font-size: 14px" ng-model="data.json"></div>
                 <button class="btn btn-primary" style="margin-top: 15px;" ng-disabled="data.json.length <= 0" ng-click="parse()">Format</button>
                 <div class="well" style="margin-top: 15px" ng-bind-html="data.result"></div>
         </uib-accordion-group>

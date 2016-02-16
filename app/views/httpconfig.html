@@ -41,8 +41,9 @@
                         <strong>{{testfile}}</strong>
                         <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
                     </uib-accordion-heading>
-                                <textarea style='font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
-                                        background-color: #eeeeee' class="form-control" readonly rows="17"  ng-model="testcode"></textarea>
+                    <!--<textarea style='font-family: Menlo,Monaco,Consolas,"Courier New",monospace;-->
+                            <!--background-color: #eeeeee' class="form-control" readonly rows="17"  ng-model="testcode"></textarea>-->
+                    <div ui-ace="aceOptions" ng-model="testcode" style="height: 300px;font-size: 14px"></div>
                 </uib-accordion-group>
             </uib-accordion>
         </div>

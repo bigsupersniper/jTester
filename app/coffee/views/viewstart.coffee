@@ -1,6 +1,6 @@
 
 #config angular module
-app = window.angular.module 'jTester', ['ui.bootstrap' , 'ngRoute']
+app = window.angular.module 'jTester', ['ui.bootstrap' , 'ngRoute' , 'ui.ace']
 app.templateUrls =
   http : "./app/views/http.html"
   alert : "./app/views/alert.html"

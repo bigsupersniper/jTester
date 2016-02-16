@@ -47,6 +47,14 @@ jTester.app.controller 'HttpConfigCtrl' ,
           config.save config
           jTester.alert.success '保存成功'
 
+      $scope.aceOptions =
+        mode : 'coffee',
+        useWrapMode : true
+        showGutter: true
+        theme:'tomorrow_night_eighties'
+        onLoad : (editor)->
+          editor.setReadOnly(true)
+
       #load test code
       loadTestCode = ()->
         fs.exists jTester.Config.http.testfile , (exists)->
