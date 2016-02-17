@@ -21,7 +21,7 @@
                                 </uib-accordion-heading>
                                 <!--<textarea style='font-family: Menlo,Monaco,Consolas,"Courier New",monospace;background-color: #eeeeee'-->
                                           <!--class="form-control" rows="{{ item.rows }}"  ng-model="item.text"></textarea>-->
-                                <div ui-ace="aceOptions" ng-model="item.text" style="height: {{item.rows * 18}} px ;font-size: 14px"></div>
+                                <div ui-ace="aceOptions" ng-model="item.text" style="height: {{item.rows * 18}}px ;font-size: 14px"></div>
                                 <button class="btn btn-primary" style="margin-top: 15px;" ng-click="item.submit()" ng-disabled="item.submited" >{{ !item.submited ? 'Submit' : 'Loading' }}</button>
                                 <div class="well" style="margin-top: 15px" ng-bind-html="item.result"></div>
                             </uib-accordion-group>
