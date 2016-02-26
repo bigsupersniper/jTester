@@ -18,4 +18,4 @@ jTester.app.controller 'JsonCtrl' ,
             json = JSON.parse json
           $scope.data.result = $sce.trustAsHtml new window.JSONFormatter().jsonToHTML(json)
         catch
-          jTester.alert.error 'invaild json string'
+          $scope.alert.error 'invaild json string'

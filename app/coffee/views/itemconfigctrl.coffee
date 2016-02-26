@@ -50,16 +50,17 @@ jTester.app.controller 'ItemConfigCtrl' ,
         _itemconfig = {}
         save()
 
-      initPage = ()->
+      initItemList = ()->
         for k , v of config.items || {}
           $scope.items.push { key : k , value : v }
         _itemconfig = config.items || {}
 
-      initPage()
-
-      #register items change event
-      config.itemsChange = ()->
+      #register item config change event for config save method
+      config.itemChange = ()->
         $scope.items = []
-        initPage();
+        initItemList()
+
+      #******************************** init part ********************************#
+      initItemList()
 
 

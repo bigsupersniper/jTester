@@ -7,13 +7,12 @@ jTester.app.controller 'IndexCtrl' ,
   class IndexCtrl
     constructor : ($scope ,$uibModal , $timeout , $location) ->
       $scope.loading = true
-      #$scope.testcode = '123123'
       $timeout ()->
         $scope.loading = false
       , 1500
 
-      #******************************** jTester alert part ********************************#
-      jTester.alert =
+      #******************************** alert notify part ********************************#
+      $scope.alert =
         show : (type , message , timeout)->
           timeout = timeout || 3000
           $uibModal.open {
@@ -39,9 +38,8 @@ jTester.app.controller 'IndexCtrl' ,
         error : (message, timeout)->
           @show('danger' , message, timeout)
 
-      #******************************** jTester file part ********************************#
-      jTester.file =
-        upload : (context)->
+      #******************************** file upload part ********************************#
+      $scope.openFileUpload = (context)->
           $uibModal.open {
             templateUrl: jTester.app.templateUrls.upload
             backdrop : 'static'
@@ -53,7 +51,7 @@ jTester.app.controller 'IndexCtrl' ,
           }
 
       #******************************** menubar part ********************************#
-      menubarConfig = ()->
+      createMenubar = ()->
         $scope.navigate = [ 'Run' , 'HTTP']
         #redirect url
         redirect = (path)->
@@ -156,5 +154,5 @@ jTester.app.controller 'IndexCtrl' ,
         menubar.append helpmenu
         nw.Window.get().menu = menubar
 
-      #exec menu config
-      menubarConfig()
+      #******************************** init part ********************************#
+      createMenubar()

@@ -19,24 +19,21 @@ jTester.app.controller 'HttpConfigCtrl' ,
       $scope.change = (file)->
         ext = path.extname file
         if ext == ".js" || ext == ".coffee"
-          window.UnitTests = undefined
+          delete global.require.cache[config.http.testfile]
           window.require file
           #check if contains main object
           if window.UnitTests
             config.http.testfile = file
             config.save config
-            #restart
-            nw.Window.get().hide()
-            child_process = require 'child_process'
-            child = child_process.spawn(process.execPath, [], {
-              detached: true
-            })
-            child.unref()
-            nw.App.quit()
+            #recreate tabs
+            $scope.createTabs()
+            #load test code
+            loadTestCode()
+            $scope.alert.success '载入测试文件成功'
           else
-            jTester.alert.error 'window.UnitTests object not found'
+            $scope.alert.error 'window.UnitTests object not found'
         else
-          jTester.alert.error 'invalid test file'
+          $scope.alert.error 'invalid test file'
 
       $scope.save = ()->
         if !$scope.httpconfig.baseUrl
@@ -45,7 +42,9 @@ jTester.app.controller 'HttpConfigCtrl' ,
           config.http.baseUrl = $scope.httpconfig.baseUrl
           config.http.testfile = $scope.httpconfig.testfile
           config.save config
-          jTester.alert.success '保存成功'
+          $scope.alert.success '保存成功'
+
+      aceEditor = {}
 
       $scope.aceOptions =
         mode : 'coffee',
@@ -53,7 +52,23 @@ jTester.app.controller 'HttpConfigCtrl' ,
         showGutter: true
         theme:'tomorrow_night_eighties'
         onLoad : (editor)->
-          editor.setReadOnly(true)
+          aceEditor = editor
+
+      $scope.saveAndReloadCode = ()->
+        $scope.saveCode()
+        delete global.require.cache[config.http.testfile]
+        window.require config.http.testfile
+        $scope.createTabs()
+        $scope.alert.success '保存并重载成功'
+
+      $scope.saveCode = ()->
+        fs.exists $scope.testfile , (exists)->
+          if exists
+            fs.writeFile $scope.testfile, aceEditor.getValue() , (err)->
+              if err
+                $scope.alert.error err
+              else
+                $scope.alert.success '保存成功'
 
       #load test code
       loadTestCode = ()->
@@ -63,12 +78,12 @@ jTester.app.controller 'HttpConfigCtrl' ,
               $scope.testfile = jTester.Config.http.testfile
               $scope.testcode = data
 
-      #register httpconfig change
+      #register httpconfig change event for config save method
       config.httpChange = ()->
         $scope.httpconfig =
           baseUrl : config.http.baseUrl || ''
           testfile : config.http.testfile || ''
 
-      #load code
+      #******************************** init part ********************************#
       loadTestCode()
 

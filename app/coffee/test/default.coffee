@@ -5,11 +5,11 @@ jTester = window.jTester
 beforeSubmit = (context)->
   context.baseUrl = jTester.Config.http.baseUrl
   context.beforeSend = ()->
-    jTester.DefaultHttpHandler.beforeSend context
+    context.$scope.defaultHttpHandler.beforeSend context
   context.complete = (response , body)->
-    jTester.DefaultHttpHandler.complete context , response , body
+    context.$scope.defaultHttpHandler.complete context , response , body
   context.error = (err , response)->
-    jTester.DefaultHttpHandler.error context, err , response
+    context.$scope.defaultHttpHandler.error context, err , response
 
 window.UnitTests =
   Home :
@@ -42,4 +42,4 @@ window.UnitTests =
         b : 2
       beforeSubmit : beforeSubmit
       submit : (context)->
-        jTester.file.upload(context)
+        context.$scope.openFileUpload(context)

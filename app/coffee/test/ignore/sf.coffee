@@ -37,7 +37,7 @@ submitRequest = (context , useToken , callback)->
       ciphertext : jTester.AES.encrypt_ecb secret_key , plainText
   #config callback
   context.beforeSend = ()->
-    jTester.DefaultHttpHandler.beforeSend context
+    context.$scope.defaultHttpHandler.beforeSend context
   context.complete = (response , body)->
     if body
       result = JSON.parse body
@@ -49,9 +49,9 @@ submitRequest = (context , useToken , callback)->
           result.data = planText
       if callback && result.data
         callback result.data
-    jTester.DefaultHttpHandler.complete context , response , result
+    context.$scope.defaultHttpHandler.complete context , response , result
   context.error = (err , response)->
-    jTester.DefaultHttpHandler.error context, err , response
+    context.$scope.defaultHttpHandler.error context, err , response
   #submit request
   jTester.HttpRequest.post context
 

@@ -6,17 +6,15 @@ config = jTester.Config
 jTester.app.controller 'HttpCtrl' ,
   class HttpCtrl
     constructor : ($scope , $http , $sce) ->
-      #view tab
-      $scope.tabs = []
 
+      $scope.tabs = []
       $scope.aceOptions =
         mode : 'json',
         useWrapMode : true
         showGutter: true
         theme:'tomorrow_night_eighties'
 
-      #resolve window.UnitTests
-      loadTabs = () ->
+      $scope.createTabs = ()->
         tabs = []
         for tb , items of window.UnitTests
           tab =
@@ -60,39 +58,38 @@ jTester.app.controller 'HttpCtrl' ,
           tabs.push tab
         $scope.tabs = tabs
 
-      #load test file and init tabs
-      testfile = config.http.testfile || './app/coffee/test/default.coffee'
-      window.require testfile
-      loadTabs()
+      #******************************** defaultHttpHandler part ********************************#
+      $scope.defaultHttpHandler =
+        beforeSend : (context)->
+          if context.ref
+            context.ref.submited = true
+          if context.$uibModalInstance
+            context.$uibModalInstance.close 'dismiss'
 
-#default http callback
-jTester.DefaultHttpHandler =
-  beforeSend : (context)->
-    if context.ref
-      context.ref.submited = true
-    if context.$uibModalInstance
-      context.$uibModalInstance.close 'dismiss'
+        complete : (context, response , body)->
+          if context.ref && context.$sce
+            context.ref.submited = false
+            dataType = response.headers["content-type"] || ""
+            if dataType.indexOf "application/json" > -1
+              if typeof body == "string"
+                body = JSON.parse body
+              context.ref.result = context.$sce.trustAsHtml "#{new Date().toLocaleString()}
+                  <p></p> #{new window.JSONFormatter().jsonToHTML(body)}"
+            else
+              context.ref.result = context.$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{body}"
+            context.$scope.$apply()
 
-  complete : (context, response , body)->
-    if context.ref && context.$sce
-      context.ref.submited = false
-      dataType = response.headers["content-type"] || ""
-      if dataType.indexOf "application/json" > -1
-        if typeof body == "string"
-          body = JSON.parse body
-        context.ref.result = context.$sce.trustAsHtml "#{new Date().toLocaleString()}
-            <p></p> #{new window.JSONFormatter().jsonToHTML(body)}"
-      else
-        context.ref.result = context.$sce.trustAsHtml "#{new Date().toLocaleString()} <p></p> #{body}"
-      context.$scope.$apply()
+        error : (context, err , response)->
+          if context.ref
+            context.ref.submited = false
+            if err != null && typeof err == "object"
+              context.ref.result = context.$sce.trustAsHtml "#{new Date().toLocaleString()}
+                      <p></p> #{new window.JSONFormatter().jsonToHTML(err)}"
+            else
+              context.ref.result = context.$sce.trustAsHtml "#{new Date().toLocaleString()}
+                      <p></p> #{response.statusCode} #{response.statusMessage}"
+            context.$scope.$apply()
 
-  error : (context, err , response)->
-    if context.ref
-      context.ref.submited = false
-      if err != null && typeof err == "object"
-        context.ref.result = context.$sce.trustAsHtml "#{new Date().toLocaleString()}
-                <p></p> #{new window.JSONFormatter().jsonToHTML(err)}"
-      else
-        context.ref.result = context.$sce.trustAsHtml "#{new Date().toLocaleString()}
-                <p></p> #{response.statusCode} #{response.statusMessage}"
-      context.$scope.$apply()
+      #******************************** init part ********************************#
+      window.require config.http.testfile
+      $scope.createTabs()

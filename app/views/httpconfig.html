@@ -22,7 +22,7 @@
         <div class="input-group">
             <span class="input-group-addon">服务器地址</span>
             <input type="url" class="form-control" ng-model="httpconfig.baseUrl"  style="width: 300px;" placeholder="baseUrl">
-            <button class="btn btn-primary" style="margin-left: 50%" ng-click="save()">保存</button>
+            <button class="btn btn-primary" style="margin-left: 20px" ng-click="save()">保存</button>
         </div>
         <div class="input-group" style="margin-top: 10px;">
             <span class="input-group-addon">测试文件路径</span>
@@ -41,9 +41,9 @@
                         <strong>{{testfile}}</strong>
                         <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
                     </uib-accordion-heading>
-                    <!--<textarea style='font-family: Menlo,Monaco,Consolas,"Courier New",monospace;-->
-                            <!--background-color: #eeeeee' class="form-control" readonly rows="17"  ng-model="testcode"></textarea>-->
-                    <div ui-ace="aceOptions" ng-model="testcode" style="height: 300px;font-size: 14px"></div>
+                    <div ui-ace="aceOptions" ng-model="testcode" style="height: 600px;font-size: 14px"></div>
+                    <button class="btn btn-primary" style="margin-top: 10px" ng-disabled="editorChanged" ng-click="saveCode()">保存</button>
+                    <button class="btn btn-primary" style="margin-left: 10px;margin-top: 10px" ng-click="saveAndReloadCode()" ng-disabled="editorChanged">保存并加载</button>
                 </uib-accordion-group>
             </uib-accordion>
         </div>
