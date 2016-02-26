@@ -112,7 +112,7 @@ jTester.app.controller 'IndexCtrl' ,
                     { title : "Ace", value : "v1.2.3" , url : 'https://ace.c9.io/#nav=about'}
                     { title : "ArgularJS", value : "v1.4.8" , url : 'https://angularjs.org/'}
                     { title : "Angular-ui-Bootstrap", value : "v0.14.3" , url : 'http://angular-ui.github.io/bootstrap/'}
-                    { title : "ui-ace", value : "v0.2.3" , url : 'http://angular-ui.github.io/ui-ace'}
+                    { title : "ui-ace", value : "v0.2.3" , url : 'https://github.com/angular-ui/ui-ace'}
                     { title : "bootstrap css", value : "v3.2.0" , url : 'http://getbootstrap.com/'}
                     { title : "cryptojs", value : "v3.1.5" , url : 'https://github.com/evanvosberg/crypto-js'}
                     { title : "coffee-script", value : "v1.10.0" , url : 'http://coffeescript.org/'}
