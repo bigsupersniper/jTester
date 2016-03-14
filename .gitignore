@@ -6,3 +6,4 @@
 *.dll
 *.exe
 *.pak
+app/coffee/test/ignore
