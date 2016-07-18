@@ -23,8 +23,8 @@ config =
     fs.writeFileSync  configPath, json , { encoding : "utf-8" }
     if @httpChange
       @httpChange()
-    if itemChange
-      itemChange()
+    if @itemChange
+      @itemChange()
 
 #init config
 config.init()
