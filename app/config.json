@@ -1,14 +1,8 @@
 {
     "http": {
-        "testfile": "F:\\GitHub\\jTester\\app\\coffee\\test\\ignore\\sf.coffee",
-        "baseUrl": "http://192.168.1.43:6079"
+        "testfile": "E:\\GitHub\\jTester\\app\\coffee\\test\\default.coffee",
+        "baseUrl": ""
     },
     "items": {
-        "client_id": "3o31A3lNASL8NZO2ATXBV52mrs0rcr7mLEvcUBh1B5N9M29v",
-        "client_secret": "yvT66pfP5wkik7Ma",
-        "imei": "a2a329f2c8f044f9bf1c7810e81c5189",
-        "api_token": "e4408269ea8a8422be7252c489429fbdd79c6412",
-        "api_secret": "B1gIdng4YCJVCx1i",
-        "school_url": "http://192.168.1.43:6080"
     }
 }

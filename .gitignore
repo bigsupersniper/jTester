@@ -1,9 +1,0 @@
-#################
-## WebStrom
-#################
-
-.idea
-*.dll
-*.exe
-*.pak
-app/coffee/test/ignore

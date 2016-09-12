@@ -117,7 +117,7 @@ jTester.app.controller 'IndexCtrl' ,
                     { title : "cryptojs", value : "v3.1.5" , url : 'https://github.com/evanvosberg/crypto-js'}
                     { title : "coffee-script", value : "v1.10.0" , url : 'http://coffeescript.org/'}
                     { title : "node-uuid", value : "v1.4.7" , url : ''}
-                    { title : "request", value : "v2.67.0" , url : ''}
+                    { title : "request", value : "v2.74.0" , url : ''}
                     { title : "dateformat", value : "v1.0.12" , url : ''}
                   ]
               }
