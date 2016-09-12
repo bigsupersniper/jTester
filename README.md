@@ -8,5 +8,5 @@ jTester是一个基于Node-Webkit的Asp.Net MVC 接口测试工具。<br/>
 How to run on Windows
 =====================
 
-1、下载windows版：https://github.com/nwjs/nw.js <br/>
+1、下载windows版：https://github.com/nwjs/nw.js (version <= v0.12.3)<br/>
 2、将jTester目录下的所有文件放到nw.exe所在目录下直接运行nw.exe <br/>
